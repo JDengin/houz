@@ -13,44 +13,44 @@ const HomeType = () => {
   const search = useLocation().search
   const home_type = new URLSearchParams(search).get('type'); //type here is a query string in the url 
 
-  const { posts, isLoading, isError, message, reset } = useSelector((state) => (state.posts))
+  const { posts, isLoading, isError, isSuccess, message, reset } = useSelector((state) => (state.posts))
 
-  //const destructuredPosts = posts.posts;
+  const destructuredPosts = posts.posts;
 
-  //console.log(destructuredPosts)
   console.log(posts)
-  //console.log(home_type)
+  console.log(home_type)
+  console.log(destructuredPosts)
 
-  /* useEffect(() => {
+  useEffect(() => {
 
     if(isError) {
       toast.error(message)
     } 
     
     dispatch(getPostBySearch(home_type)) 
-    
-    return () => {
+        
+    /* return () => {
       dispatch(reset() )
-    }  
+    } */  
     
-  }, [isLoading])  */
+  }, [home_type]) 
 
   return (
     <>
       <Navbar/>
       
-      <section className=" mx-[3vw] my-[5vw] h-min-[70vh] flex flex-wrap justify-center">
+      <section className=" mx-[3vw] my-[5vw] min-h-[63vh] flex flex-wrap justify-center">
            
         {isLoading ? (
               <Spinner/>
-            ) : ( posts.length > 0 ? (
+            ) : ( destructuredPosts?.length > 0 ? (
                     <div className='flex flex-wrap items-center justify-center'>
-                      {posts.map((post) => (
+                      {destructuredPosts.map((post) => (
                         <HomeCard key={post._id} post={post} />
                       ))}
                     </div>
                   ) : (
-                    <p>You have no home to display</p>
+                    <p>We have no such type of home</p>
                   ) 
             )            
             

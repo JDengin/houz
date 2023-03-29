@@ -40,13 +40,13 @@ const Navbar = () => {
             <Link to="/home_type?type=studio" onClick={() => setNavbarOpen(!navbarOpen)} className="px-[15px] hover:text-sky-400 hover:no-underline">
               Studio
             </Link>
-            <Link to="/home_type?type=room" onClick={() => setNavbarOpen(!navbarOpen)} className="px-[15px] hover:text-sky-400 hover:no-underline" >
+            <Link to="/home_type?type=chambre" onClick={() => setNavbarOpen(!navbarOpen)} className="px-[15px] hover:text-sky-400 hover:no-underline" >
               Chambre
             </Link>
-            <Link to="/home_type?type=apartment" onClick={() => setNavbarOpen(!navbarOpen)} className="px-[15px] hover:text-sky-400 hover:no-underline">
+            <Link to="/home_type?type=appartement" onClick={() => setNavbarOpen(!navbarOpen)} className="px-[15px] hover:text-sky-400 hover:no-underline">
               Appartement
             </Link>
-            <Link to="/home_type?type=commercial_space" onClick={() => setNavbarOpen(!navbarOpen)} className="px-[15px] hover:text-sky-400 hover:no-underline">
+            <Link to="/home_type?type=espace commercial" onClick={() => setNavbarOpen(!navbarOpen)} className="px-[15px] hover:text-sky-400 hover:no-underline">
               Espace commercial
             </Link>
           </nav>

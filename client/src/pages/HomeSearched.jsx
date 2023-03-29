@@ -11,16 +11,11 @@ const HomeSearched = () => {
 
   const dispatch = useDispatch();
 
-  const { posts, isLoading, isError, message } = useSelector((state) => state.posts)
+  const { posts, isSuccess, isError, message } = useSelector((state) => state.posts)
   const search = useLocation().search
   const searchedQuery = new URLSearchParams(search).get('searchQuery'); //searchQuery here is a query string in the url 
 
-  console.log(searchedQuery)
-  //let destructuredPosts = posts.posts;
-
-  console.log(posts)
-
-  let post =""
+  const destructuredPosts = posts.posts
    
    useEffect(() => {
 
@@ -28,42 +23,33 @@ const HomeSearched = () => {
         toast.error(message)
       } 
 
-      dispatch(getPostBySearch(searchedQuery))   
-
-      console.log(isLoading)
-      
-      return () => {
-        dispatch(reset())
-      } 
+      dispatch(getPostBySearch(searchedQuery))  
     
-   }, [searchedQuery])  //posts, isLoading, message
+   }, []) 
 
-  //In some cases "posts" is an Array and in some others cases an object so i need to use if...else
-  if(Array.isArray(posts)) {
-    post = posts.find((p) => p._id === id);
-  } else {
-    const destructuredPosts = posts.posts;
-    post = destructuredPosts.find((p) => p._id === id); //We destructure this post because " find() " method is only for array
-  } 
+  console.log(posts) 
+  console.log(searchedQuery)
+  console.log(destructuredPosts)
+  console.log(isSuccess)
 
   return (
       <>
           <Navbar/>           
           
-          <section className=" mx-[3vw] w-[94vw] h-min-[87vh] flex flex-wrap justify-center">
+          <section className=" mt-[1vh] mx-[3vw] w-[94vw] min-h-[76vh] flex flex-wrap justify-center">
               
-              {isLoading ? (                
+              {!isSuccess || destructuredPosts?.length === undefined ? ( // "destructuredPosts.length" is undefined until             
                 <Spinner/>
-                ) : ( (posts).length > 0 ? (
+                ) : (destructuredPosts?.length > 0 ? (
                         <div className='flex flex-wrap items-center justify-center'>
-                          {(posts).map((post) => (
+                          {(destructuredPosts).map((post) => (
                             <HomeCard key={post._id} post={post} />
                             )
                           )}
                         </div>
                       ) : ( <p>No home matches your search</p> ) 
                     )       
-              }        
+              }       
             
           </section>
   

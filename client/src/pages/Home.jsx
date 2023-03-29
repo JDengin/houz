@@ -24,12 +24,14 @@ const Home = () => {
     } 
     
     dispatch(getAllPosts()) 
-       
-      /* return () => {
-      dispatch(reset()) 
-      }   */  
+    
+      return () => {
+      dispatch(reset())       
+      }    
     
   }, [])
+
+  
   
 
   const handleSubmit = (e) => {
@@ -37,9 +39,6 @@ const Home = () => {
     
     navigate(`./home_searched?searchQuery=${searchedWord}`);
 
-    //dispatch(getPostBySearch(searchedWord))   
-
-    //alert(`The address you entered was: ${searchedAddress}`);
   }   
 
   return (
