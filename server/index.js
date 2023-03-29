@@ -3,13 +3,11 @@ import express from 'express';
 import * as dotenv from 'dotenv';
 import cors from 'cors';
 import multer from 'multer';
-
-
 import connectDB from './mongodb/connect.js';
 import postRoutes from './routes/postRoutes.js';
 import userRoutes from './routes/userRoutes.js';
 
-import { createPostController } from './controllers/post.js';
+import { createPost } from './controllers/post.js';
 
 
 dotenv.config();
@@ -37,7 +35,7 @@ app.get('/', async (req, res) => {
 
 /*____________MULTER____________*/
 
-const storage = multer.diskStorage({
+/* const storage = multer.diskStorage({
   destination: function ( req, file, cb) {
     cb(null, '/uploads') //cb(null, __dirname + '/uploads')
   },
@@ -52,7 +50,9 @@ const upload = multer({ storage: storage });
 app.use(upload.array());
 app.use(express.static('public'));
 
-app.post('/posts', upload.none(), createPostController ); //limit the number of allowed images to upload at 10
+app.post('/', upload.array('filesImg'), createPost); */
+
+//limit the number of allowed images to upload at 10
 
 /*____________MULTER_____________*/
 

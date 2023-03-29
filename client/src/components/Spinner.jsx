@@ -3,9 +3,10 @@ import ClipLoader from "react-spinners/ClipLoader";
 
 const Spinner = () => {
   return (
-  <div className="bg-black flex items-center justify-center m-auto h-[100vh]">
+  <div className="bg-black flex flex-col items-center justify-center m-auto h-[100vh]">
+      <p className="text-white">Is Loading...</p>
       <ClipLoader color={'#ffffff'} size={150} />
-    </div>
+  </div>
         
   )
 }

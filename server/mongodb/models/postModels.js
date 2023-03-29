@@ -17,7 +17,7 @@ const postSchema = new mongoose.Schema({
     phoneNumber1: Number,
     phoneNumber2: Number,
     homeDescription: String,
-    filesImg: [String],
+    //filesImg: [String],
     createdAt: {
         type: Date,
         default: new Date()

@@ -6,6 +6,7 @@ import Apartment_for_rent from './Apartment_for_rent';
 import Studio_for_rent from './Studio_for_rent';
 import Room_for_rent from './Room_for_rent';
 import Commercial_space_for_rent from './Commercial_space_for_rent';
+import HomeType from './HomeType';
 
 
 export {
@@ -16,5 +17,6 @@ export {
     Apartment_for_rent,
     Studio_for_rent,
     Room_for_rent,
-    Commercial_space_for_rent
+    Commercial_space_for_rent,
+    HomeType
 }
