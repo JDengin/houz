@@ -2,7 +2,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Home, HomeDetails, CreateHome, Auth, HomeType, Apartment_for_rent, Studio_for_rent, Room_for_rent, Commercial_space_for_rent } from './pages';
+import { Home, HomeDetails, CreateHome, Auth, HomeType} from './pages';
 import HomeSearched from "./pages/HomeSearched";
 
 const App = () => {
@@ -13,11 +13,6 @@ const App = () => {
             <Routes>
               <Route path="/" element={<Home/>} />
               <Route path="/auth" element={<Auth/>} />
-              {/* <Route path="/studio_for_rent" element={<Studio_for_rent/>} />
-              <Route path="/room_for_rent" element={<Room_for_rent/>} />
-              <Route path="/apartment_for_rent" element={<Apartment_for_rent/>} />
-              <Route path="/commercial_space_for_rent" element={<Commercial_space_for_rent/>} /> 
-              ALL THE ROUTES ABOVE REPLACED BY HomeType COMPONENT AND QUERY STRING TECHNIQUE*/}
               <Route path="/home_type" element={<HomeType/>} />
               <Route path="/create_home" element={<CreateHome/>} />
               <Route path="/homedetails/:id" element={<HomeDetails/>} /> {/* I want this page to be a modal page */}

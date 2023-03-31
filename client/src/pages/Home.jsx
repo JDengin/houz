@@ -1,11 +1,11 @@
 //This file manage the front-end of the homepage
 import { useState, useEffect } from 'react';
-import { HomeCard, Navbar, Footer } from "../components";
+import { useLocation } from 'react-router-dom'
+import { HomeCard, Navbar, Spinner, PaginateHome, Footer } from "../components";
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
-import { getAllPosts, getPostBySearch, reset } from '../features/post/postSlice';
-import Spinner from "../components/Spinner";
+import { getAllPosts, reset } from '../features/post/postSlice';
 
 const Home = () => {
 
@@ -13,32 +13,33 @@ const Home = () => {
   const navigate = useNavigate();
 
   const [searchedWord, setSearchedWord] = useState("");
-  const { posts, isLoading, isError, message, isSuccess } = useSelector((state) => state.posts)
+  const { posts, numberOfPages, isLoading, isError, message } = useSelector((state) => state.posts)
 
-  //console.log(isLoading)
+  //This code give me the queryString "page" of the url for the pagination
+  const search = useLocation().search
+  let page = new URLSearchParams(search).get('page') || 1; //type here is a query string in the url
+  //End
 
   useEffect(() => {
 
     if(isError) {
       toast.error(message)
     } 
-    
-    dispatch(getAllPosts()) 
-    
-      return () => {
-      dispatch(reset())       
-      }    
-    
-  }, [])
 
-  
-  
+    if(page && (page <= numberOfPages)){
+      dispatch(getAllPosts(page)) 
+    }
+   
+    return () => {
+      dispatch(reset())       
+    }    
+    
+  }, [page]) 
 
   const handleSubmit = (e) => {
     e.preventDefault();
     
-    navigate(`./home_searched?searchQuery=${searchedWord}`);
-
+    navigate(`./home_searched?searchQuery=${searchedWord}&page=${page}`);
   }   
 
   return (
@@ -80,7 +81,14 @@ const Home = () => {
           
         }
         
-      </div>     
+      </div>
+
+      <div className='flex justify-center my-[2vh]'>   
+      
+          {/* {(posts.length > 8) && <Paginate2 page={page} posts={posts}/>} */}
+          <PaginateHome page={page}/>
+      
+      </div>
       
       <Footer/>
     </>

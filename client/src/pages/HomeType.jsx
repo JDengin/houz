@@ -3,11 +3,13 @@ import { useLocation } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { toast } from 'react-toastify'
 import { Navbar, Footer } from "../components"
-import { HomeCard } from "../components"
+import { HomeCard, PaginateHome } from "../components"
 import { getPostBySearch } from "../features/post/postSlice"
 import Spinner from '../components/Spinner'
 
 const HomeType = () => {
+
+  console.log(useLocation())
 
   const dispatch = useDispatch()
   const search = useLocation().search
@@ -17,10 +19,6 @@ const HomeType = () => {
 
   const destructuredPosts = posts.posts;
 
-  console.log(posts)
-  console.log(home_type)
-  console.log(destructuredPosts)
-
   useEffect(() => {
 
     if(isError) {
@@ -28,7 +26,7 @@ const HomeType = () => {
     } 
     
     dispatch(getPostBySearch(home_type)) 
-        
+
     /* return () => {
       dispatch(reset() )
     } */  
@@ -49,13 +47,20 @@ const HomeType = () => {
                         <HomeCard key={post._id} post={post} />
                       ))}
                     </div>
+
+                   
+
                   ) : (
                     <p>We have no such type of home</p>
                   ) 
             )            
             
-          }
+        }
 
+        {((!isLoading) && (destructuredPosts?.length > 8 )) && <PaginateHome/>} 
+        {/*display Paginate component only for a number of post greater than 8, bcoz we choose to display 8 post per page*/}
+
+         
       </section>
             
       <Footer/>

@@ -25,11 +25,11 @@ const initialState = {
         }
     })
 
-    export const getAllPosts = createAsyncThunk('posts/getAllPosts', async(_, thunkAPI) => {
+    export const getAllPosts = createAsyncThunk('posts/getAllPosts', async(page, thunkAPI) => {
         try {
             //const token = thunkAPI.getState().auth.user.token
             //return await postService.getAllPosts(token)
-            return await postService.getAllPosts()
+            return await postService.getAllPosts(page)
 
         } catch (error) {
             const message = 
@@ -41,9 +41,16 @@ const initialState = {
         }
     })
 
-    export const getPostBySearch = createAsyncThunk('posts/getPostBySearch', async(searchedWord, thunkAPI) => {
+    export const getPostBySearch = createAsyncThunk('posts/getPostBySearch', async(data, thunkAPI) => {
+        
+        const {searchQuery, page} = data
+
+        console.log(data)
+        console.log(searchQuery)
+        console.log(page)
+
         try {
-                return await postService.getPostBySearch(searchedWord)
+              return await postService.getPostBySearch(searchQuery, page)
             
         } catch (error) {
             const message = 
@@ -97,7 +104,9 @@ const initialState = {
                 .addCase(getAllPosts.fulfilled, (state, action) => {
                     state.isLoading = false
                     state.isSuccess = true
-                    state.posts = action.payload
+                    state.posts = action.payload.posts
+                    state.currentPage = action.payload.currentPage//I don't really use currentPage for pagination, may be I should remove it here and into the corresponding controller
+                    state.numberOfPages = action.payload.numberOfPages
                 })
                 .addCase(getAllPosts.rejected, (state, action) => {
                     state.isLoading = false
@@ -110,7 +119,9 @@ const initialState = {
                 .addCase(getPostBySearch.fulfilled, (state, action) => {
                     state.isLoading = false
                     state.isSuccess = true
-                    state.posts = action.payload
+                    state.posts = action.payload.posts
+                    state.currentPage = action.payload.currentPage//I don't really use currentPage for pagination, may be I should remove it here and into the corresponding controller
+                    state.numberOfPages = action.payload.numberOfPages
                 })
                 .addCase(getPostBySearch.rejected, (state, action) => {
                     state.isLoading = false

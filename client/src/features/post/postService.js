@@ -20,21 +20,24 @@ const createPost = async (postData, token) => {
     return response.data;
 }
 
-const getAllPosts = async () => {
+const getAllPosts = async (page) => {
     /* const config = {
         headers: {
             Authorization: `Bearer ${token}`,
         },
     } */
     //const response = await axios.get(API_URL, config)
-    const response = await axios.get('http://localhost:8080/posts/')
+    const response = await axios.get(`http://localhost:8080/posts?page=${page}`)
 
     return response.data
 }
 
-const getPostBySearch = async (searchedWord) => {
+const getPostBySearch = async (searchQuery, page) => {
+
+    //console.log(Number(page))
+    //console.log(searchWord)
     
-        const response = await axios.get(`http://localhost:8080/posts/home_searched?searchedQuery=${searchedWord}`)
+        const response = await axios.get(`http://localhost:8080/posts/home_searched?searchQuery=${searchQuery}&page=${page}`)
 
         return response.data    
 }

@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { useLocation } from 'react-router-dom';
-import { Navbar, Footer } from "../components"
+import { Navbar, PaginateHomeSearched, Footer } from "../components"
 import { HomeCard } from "../components"
 import { useSelector, useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
@@ -11,26 +11,25 @@ const HomeSearched = () => {
 
   const dispatch = useDispatch();
 
-  const { posts, isSuccess, isError, message } = useSelector((state) => state.posts)
+  const { posts, isSuccess, isLoading, isError, message } = useSelector((state) => state.posts)
   const search = useLocation().search
-  const searchedQuery = new URLSearchParams(search).get('searchQuery'); //searchQuery here is a query string in the url 
+  const searchQuery = new URLSearchParams(search).get('searchQuery'); //searchQuery here is a query string in the url 
+  const page = Number(new URLSearchParams(search).get('page')) || 1; //type here is a query string in the url / we cast page to get a number instead of a string
 
-  const destructuredPosts = posts.posts
-   
+  //const destructuredPosts = posts.posts
+  //console.log(typeof(page))
+  //console.log(page)  
+
    useEffect(() => {
 
       if(isError) {
         toast.error(message)
       } 
 
-      dispatch(getPostBySearch(searchedQuery))  
+      //dispatch(getPostBySearch(searchQuery, Number(page))) 
+      dispatch(getPostBySearch({searchQuery, page})) 
     
-   }, []) 
-
-  console.log(posts) 
-  console.log(searchedQuery)
-  console.log(destructuredPosts)
-  console.log(isSuccess)
+   }, [dispatch, page]) 
 
   return (
       <>
@@ -38,20 +37,29 @@ const HomeSearched = () => {
           
           <section className=" mt-[1vh] mx-[3vw] w-[94vw] min-h-[76vh] flex flex-wrap justify-center">
               
-              {!isSuccess || destructuredPosts?.length === undefined ? ( // "destructuredPosts.length" is undefined until             
+              {isLoading/*  || destructuredPosts?.length === undefined */ ? ( // "destructuredPosts.length" is undefined until             
                 <Spinner/>
-                ) : (destructuredPosts?.length > 0 ? (
+                ) : (posts?.length > 0 ? (
                         <div className='flex flex-wrap items-center justify-center'>
-                          {(destructuredPosts).map((post) => (
+                          {(posts).map((post) => (
                             <HomeCard key={post._id} post={post} />
-                            )
-                          )}
+                          ))}
                         </div>
                       ) : ( <p>No home matches your search</p> ) 
                     )       
               }       
+
+             {/*  {((isSuccess) && (posts?.length > 8 )) && <Paginate/>}  */}
+              {/*display Paginate component only for a number of post greater than 8, bcoz we've 8 post per page*/}
             
           </section>
+
+          <div className='flex justify-center my-[2vh]'>   
+      
+            {/* {(posts.length > 8) && <Paginate2 page={page} posts={posts}/>} */}
+            <PaginateHomeSearched searchQuery={searchQuery} page={page}/>
+      
+         </div>
   
           <Footer/>
       </>
