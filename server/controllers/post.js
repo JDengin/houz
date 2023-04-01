@@ -31,7 +31,7 @@ export const getAllPosts = async (req, res) => {
     }    
 }
 
-/* export const getSelectedPost = async (req, res) => {
+export const getSelectedPost = async (req, res) => {
     const { id } = req.params;
 
     try {
@@ -41,7 +41,7 @@ export const getAllPosts = async (req, res) => {
     } catch (error) {
         res.status(404).json({ message: error.message });
     }
-} */
+} 
 
 export const getPostBySearch = async (req, res) => {
     const { searchQuery, page } = req.query

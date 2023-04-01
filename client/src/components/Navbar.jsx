@@ -12,8 +12,8 @@ const Navbar = () => {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);   
 
-  const search = useLocation().search
-  const page = new URLSearchParams(search).get('page') || 1; //type here is a query string in the url
+  //const search = useLocation().search
+  //const page = new URLSearchParams(search).get('page') || 1; //type here is a query string in the url
 
   const Logout = () => {
       dispatch(logout());

@@ -39,20 +39,20 @@ const getPostBySearch = async (searchQuery, page) => {
     return response.data    
 }
 
-/* Finally I don't use this function to display a post 
+// Finally I don't use this function to display a post 
 
     const getSelectedPost = async (id) => {
     
     const response = await axios.get(`http://localhost:8080/posts/homedetails/${id}`)
 
     return response.data    
-} */
+} 
 
 const postService = {
     createPost,
     getAllPosts,
     getPostBySearch,
-    //getSelectedPost
+    getSelectedPost
 }
 
 export default postService 
