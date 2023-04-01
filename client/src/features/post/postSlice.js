@@ -45,10 +45,6 @@ const initialState = {
         
         const {searchQuery, page} = data
 
-        console.log(data)
-        console.log(searchQuery)
-        console.log(page)
-
         try {
               return await postService.getPostBySearch(searchQuery, page)
             

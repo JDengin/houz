@@ -33,13 +33,10 @@ const getAllPosts = async (page) => {
 }
 
 const getPostBySearch = async (searchQuery, page) => {
-
-    //console.log(Number(page))
-    //console.log(searchWord)
     
-        const response = await axios.get(`http://localhost:8080/posts/home_searched?searchQuery=${searchQuery}&page=${page}`)
+    const response = await axios.get(`http://localhost:8080/posts/home_searched?searchQuery=${searchQuery}&page=${page}`)
 
-        return response.data    
+    return response.data    
 }
 
 /* Finally I don't use this function to display a post 

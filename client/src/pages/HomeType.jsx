@@ -2,22 +2,28 @@ import { useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { toast } from 'react-toastify'
-import { Navbar, Footer } from "../components"
-import { HomeCard, PaginateHome } from "../components"
+import { Navbar, HomeCard, Footer, PaginateHomeSearched } from "../components"
 import { getPostBySearch } from "../features/post/postSlice"
 import Spinner from '../components/Spinner'
 
 const HomeType = () => {
 
-  console.log(useLocation())
+  //console.log(useLocation())
 
   const dispatch = useDispatch()
   const search = useLocation().search
-  const home_type = new URLSearchParams(search).get('type'); //type here is a query string in the url 
+  //const home_type = new URLSearchParams(search).get('page'); //type here is a query string in the url 
+
+  
+  const searchQuery = new URLSearchParams(search).get('type'); //searchQuery here is a query string in the url 
+  const page = new URLSearchParams(search).get('page') || 1; //type here is a query string in the url 
 
   const { posts, isLoading, isError, isSuccess, message, reset } = useSelector((state) => (state.posts))
 
   const destructuredPosts = posts.posts;
+
+  console.log(posts)
+  //console.log(destructuredPosts)
 
   useEffect(() => {
 
@@ -25,13 +31,13 @@ const HomeType = () => {
       toast.error(message)
     } 
     
-    dispatch(getPostBySearch(home_type)) 
+    dispatch(getPostBySearch({searchQuery, page})) 
 
     /* return () => {
       dispatch(reset() )
     } */  
     
-  }, [home_type]) 
+  }, [dispatch, searchQuery, page]) 
 
   return (
     <>
@@ -41,14 +47,12 @@ const HomeType = () => {
            
         {isLoading ? (
               <Spinner/>
-            ) : ( destructuredPosts?.length > 0 ? (
+            ) : ( posts?.length > 0 ? (
                     <div className='flex flex-wrap items-center justify-center'>
-                      {destructuredPosts.map((post) => (
+                      {posts.map((post) => (
                         <HomeCard key={post._id} post={post} />
                       ))}
-                    </div>
-
-                   
+                    </div>                   
 
                   ) : (
                     <p>We have no such type of home</p>
@@ -56,12 +60,15 @@ const HomeType = () => {
             )            
             
         }
-
-        {((!isLoading) && (destructuredPosts?.length > 8 )) && <PaginateHome/>} 
-        {/*display Paginate component only for a number of post greater than 8, bcoz we choose to display 8 post per page*/}
-
          
       </section>
+
+      <div className='flex justify-center my-[2vh]'>   
+      
+          {/* {(posts.length > 8) && <Paginate2 page={page} posts={posts}/>} */}
+          <PaginateHomeSearched searchQuery={searchQuery} page={page}/>
+
+      </div>
             
       <Footer/>
     </>

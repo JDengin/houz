@@ -14,7 +14,7 @@ const HomeSearched = () => {
   const { posts, isSuccess, isLoading, isError, message } = useSelector((state) => state.posts)
   const search = useLocation().search
   const searchQuery = new URLSearchParams(search).get('searchQuery'); //searchQuery here is a query string in the url 
-  const page = Number(new URLSearchParams(search).get('page')) || 1; //type here is a query string in the url / we cast page to get a number instead of a string
+  const page = new URLSearchParams(search).get('page') || 1; //type here is a query string in the url 
 
   //const destructuredPosts = posts.posts
   //console.log(typeof(page))
@@ -25,7 +25,6 @@ const HomeSearched = () => {
       if(isError) {
         toast.error(message)
       } 
-
       //dispatch(getPostBySearch(searchQuery, Number(page))) 
       dispatch(getPostBySearch({searchQuery, page})) 
     

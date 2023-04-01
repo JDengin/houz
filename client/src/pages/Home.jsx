@@ -17,7 +17,7 @@ const Home = () => {
 
   //This code give me the queryString "page" of the url for the pagination
   const search = useLocation().search
-  let page = new URLSearchParams(search).get('page') || 1; //type here is a query string in the url
+  const page = new URLSearchParams(search).get('page') || 1; //page here is a query string in the url
   //End
 
   useEffect(() => {
@@ -39,7 +39,7 @@ const Home = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     
-    navigate(`./home_searched?searchQuery=${searchedWord}&page=${page}`);
+    navigate(`./home_searched?searchQuery=${searchedWord}&page=1`); // "page=1" allows me to always reach on the 1st page of homeSearched.jsx after submit
   }   
 
   return (
@@ -77,8 +77,7 @@ const Home = () => {
                 ) : (
                   <p className='text-xl mx-16 text-[#1B4571]'>You have no home to display</p>
                 ) 
-          )            
-          
+          )             
         }
         
       </div>
