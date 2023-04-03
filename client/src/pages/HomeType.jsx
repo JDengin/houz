@@ -20,11 +20,6 @@ const HomeType = () => {
 
   const { posts, isLoading, isError, isSuccess, message, reset } = useSelector((state) => (state.posts))
 
-  //const destructuredPosts = posts.posts;
-
-  //console.log(posts)
-  //console.log(destructuredPosts)
-
   useEffect(() => {
 
     if(isError) {

@@ -8,14 +8,14 @@ const API_URL = 'http://localhost:8080/posts/';
 //to perform actions as him
 
 
-const createPost = async (postData, token) => {
+const createPost = async (posts, token) => {
     const config = {
         headers: {
             Authorization: `Bearer ${token}`,
         },
     }
 
-    const response = await axios.post('http://localhost:8080/posts/', postData);
+    const response = await axios.post('http://localhost:8080/posts/', posts);
 
     return response.data;
 }

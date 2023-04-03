@@ -52,6 +52,10 @@ const Navbar = () => {
               Espace commercial
             </Link>
           </nav>
+
+      </div>
+
+      <div className={"flex-col lg:flex lg:flex-row lg:flex-between" + (navbarOpen ? "flex" : " hidden")}> 
                             
           <div className="flex flex-col lg:flex-row mx-3 text-3xl lg:text-lg leading-10 lg:leading-normal"> 
             {user ? ( 

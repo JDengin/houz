@@ -4,10 +4,15 @@ import User from './userModels.js';
 
 const postSchema = new mongoose.Schema({
     /* user: {
-        type: User,
-        required: true
-    }, */
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref: 'User'
+    },  */
 
+    postCreator: {
+        type: String,
+        required: true
+    },
     homeType: String,
     price: Number,
     monthsNumber: Number,

@@ -78,8 +78,11 @@ export const getPostBySearch = async (req, res) => {
 
 export const createPost = async(req, res) => {
 
-    const post = req.body;
-    const newPostModel = new postModel({...post, createdAt: new Date().toISOString() });
+    //console.log(req.body)
+    //console.log(req.auth)
+    const posts = req.body
+
+    const newPostModel = new postModel({...posts, createdAt: new Date().toISOString() });
     
     try {
         await newPostModel.save();
@@ -87,5 +90,5 @@ export const createPost = async(req, res) => {
         res.status(201).json(newPostModel);     
     } catch (error) {
         res.status(409).json({ message: error.message });        
-    }
+    } 
 }

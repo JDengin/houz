@@ -5,6 +5,7 @@ import { Navbar, Footer } from "../components"
 import { getAllPosts, getSelectedPost } from '../features/post/postSlice';
 import sample_home from "../assets/sample_home.jpg"
 import Spinner from "../components/Spinner";
+import { toast } from 'react-toastify';
  
 const HomeDetails = () => {
 

@@ -3,19 +3,31 @@ import { Navbar } from "../components";
 import { useDispatch, useSelector } from 'react-redux';
 import { createPost, reset } from '../features/post/postSlice';
 import { useNavigate } from 'react-router-dom';
-
+import { toast } from 'react-toastify';
 
 const CreateHome = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const {user, isLoading, isError, isSuccess, message} = useSelector((state) => state.posts);
+  const {user, isLoading, isError, isSuccess, message} = useSelector((state) => state.auth);
   
   const [postInputs, setPostInputs] = useState({});
   const [urlImages, setUrlImages] = useState([]); //State for URL of images
   const [loading, setLoading] = useState(false);
   const [pictures, setPictures] = useState([]);//State for images
+
+  const userId = user._id
+
+  const obj1 = { 'sort' : 'asc', 'xs': 'sds'}
+  const obj2 = { 'sfd': 'sfds', 'sfsd': 'sfs'}
+
+  //const obj = Object.assign(obj1, obj2)
+
+  const obj = {...obj1, ...obj2}
+
+  
+  //console.log(postInputs)
 
   useEffect(() => {
     if(isError) {
@@ -73,8 +85,12 @@ const handleSubmit = async(e) => {
 
     //dispatch(createPost(...formData));
 
-    dispatch(createPost(postInputs));
+    const posts = {...postInputs, postCreator: userId} //add postCreator field to posts
 
+    console.log(posts)
+
+    dispatch(createPost(posts));
+  
     navigate('/');
     
 
@@ -128,7 +144,7 @@ const handleSubmit = async(e) => {
                         </label>
 
                         <label className='flex flex-col'>Rent deposit(Fcfa):
-                          <input className='w-full lg:w-[15vw] h-[5vh] px-[5px]' type="number" name="deposit" min="0" value={postInputs.deposit || ""} onChange={handleChange} placeholder="Ex. 25000" required/>
+                          <input className='w-full lg:w-[15vw] h-[5vh] px-[5px]' type="number" name="rentDeposit" min="0" value={postInputs.rentDeposit || ""} onChange={handleChange} placeholder="Ex. 25000" required/>
                         </label>
                     </div>
                     
@@ -144,11 +160,11 @@ const handleSubmit = async(e) => {
 
                     <div className="flex flex-col lg:flex-row my-[1vh] justify-between mx-[2vw]">
                         <label className='flex flex-col'>Phone number1*:
-                          <input className='w-full lg:w-[15vw] h-[5vh] px-[5px]' type="number" name="phone1" min="0" value={postInputs.phone1 || ""} onChange={handleChange} placeholder="Ex. 699254878" required/>
+                          <input className='w-full lg:w-[15vw] h-[5vh] px-[5px]' type="number" name="phoneNumber1" min="0" value={postInputs.phoneNumber1 || ""} onChange={handleChange} placeholder="Ex. 699254878" required/>
                         </label>
 
                         <label className='flex flex-col'>Phone number2:
-                          <input className='w-full lg:w-[15vw] h-[5vh] px-[5px]' type="number" name="phone2" min="0" value={postInputs.phone2 || ""} onChange={handleChange} placeholder="Ex. 678952136"/>
+                          <input className='w-full lg:w-[15vw] h-[5vh] px-[5px]' type="number" name="phoneNumber2" min="0" value={postInputs.phoneNumber2 || ""} onChange={handleChange} placeholder="Ex. 678952136"/>
                         </label>
                     </div>
 

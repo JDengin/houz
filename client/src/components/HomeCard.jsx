@@ -22,7 +22,8 @@ const HomeCard = ({ post }) => {
   return (
    /*  <button onClick={handleClick} className="m-4 bg-white rounded-lg w-[300px]"> */
          <Link to={`/homedetails/${post?._id}`} className="bg-white hover:no-underline" > 
-              
+
+              {/* <span className="">Like</span> */}              
               <Swiper
                   pagination={{
                     clickable: true,

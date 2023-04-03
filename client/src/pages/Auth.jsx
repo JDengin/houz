@@ -10,7 +10,6 @@ import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 import { register, login, reset } from '../features/auth/authSlice';
 import Spinner from "../components/Spinner";
 
-
 const Auth = () => {
 
   const [inputs, setInputs] = useState({});
@@ -19,7 +18,6 @@ const Auth = () => {
   const [confirmPasswordType, setConfirmPasswordType] = useState('password');
   const [isPassword, setIsPassword] = useState(true);
   const [isConfirmPassword, setIsConfirmPassword] = useState(true);
-
 
   const navigate = useNavigate();
   const dispatch = useDispatch(); 
@@ -68,7 +66,6 @@ const Auth = () => {
       dispatch(login(userData))
 
     }
-
 
   }
 

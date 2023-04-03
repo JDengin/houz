@@ -12,11 +12,11 @@ const initialState = {
     //The token is like a password, it allows the user to authentificate to dataverse software apis
     //to perform actions as him
 
-    export const createPost = createAsyncThunk('posts/createPost', async(postData, thunkAPI) => {
-
+    export const createPost = createAsyncThunk('posts/createPost', async(posts, thunkAPI) => {
+        
         try {
             const  token = thunkAPI.getState().auth.user.token
-            return await postService.createPost(postData, token)
+            return await postService.createPost(posts, token)
         } catch (error) {
             const message = (error.response && error.response.data && error.response.data.message) || 
             error.message || error.toString()
