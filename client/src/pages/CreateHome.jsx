@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Navbar } from "../components";
+import { Navbar, Footer } from "../components";
 import { useDispatch, useSelector } from 'react-redux';
 import { createPost, reset } from '../features/post/postSlice';
 import { useNavigate } from 'react-router-dom';
@@ -19,16 +19,6 @@ const CreateHome = () => {
 
   const userId = user._id
 
-  const obj1 = { 'sort' : 'asc', 'xs': 'sds'}
-  const obj2 = { 'sfd': 'sfds', 'sfsd': 'sfs'}
-
-  //const obj = Object.assign(obj1, obj2)
-
-  const obj = {...obj1, ...obj2}
-
-  
-  //console.log(postInputs)
-
   useEffect(() => {
     if(isError) {
       toast.error(message);
@@ -44,8 +34,7 @@ const CreateHome = () => {
     setPostInputs(values => ({...values, [name]: value}))
   }
 
-//Functions to preview multiple images  
-
+//Functions to preview multiple images 
 
 const handleImg = (e) => {
     
@@ -87,30 +76,19 @@ const handleSubmit = async(e) => {
 
     const posts = {...postInputs, postCreator: userId} //add postCreator field to posts
 
-    console.log(posts)
+    //console.log(posts)
 
     dispatch(createPost(posts));
   
-    navigate('/');
-    
-
-    //console.log(...formData);
-    //console.log(formData);
-    //dispatch(createPost(...formData));
-
-    
-    //console.log(...pictures);
-    //console.log(postInputs);
-
-        
+    navigate('/');           
   }; 
 
   return (
     <>
       <Navbar/>
-      <section className="flex justify-center items-center">
+      <section className="mt-[15vh] flex justify-center items-center">
 
-          <div className="drop-shadow-lg my-10 bg-slate-300 w-full lg:w-[40vw]  h-min-[70vh]">
+          <div className="drop-shadow-lg my-10 bg-slate-300 w-full lg:w-[40vw]  min-h-[70vh]">
               
               <p className="flex justify-center text-2xl font-semibold my-2">
                   HOME POST FORM
@@ -134,43 +112,43 @@ const handleSubmit = async(e) => {
                         </label>
 
                         <label className='flex flex-col'>Price(Fcfa):
-                          <input className='w-full lg:w-[15vw] h-[5vh] px-[5px]' type="number" name="price" min="0" value={postInputs.price || ""} onChange={handleChange} placeholder="Ex. 500000" required/>
+                          <input className='w-full lg:w-[15vw] h-[5vh] px-[5px] outline-none' type="number" name="price" min="0" value={postInputs.price || ""} onChange={handleChange} placeholder="Ex. 500000" required/>
                         </label>
                     </div>
 
                     <div className="flex flex-col lg:flex-row my-[1vh] justify-between mx-[2vw]">
                         <label className='flex flex-col'>Months number:
-                          <input className='w-full lg:w-[15vw] h-[5vh] px-[5px]' type="number" name="monthsNumber" min="0" value={postInputs.monthsNumber || ""} onChange={handleChange} placeholder="Ex. 3" required/>
+                          <input className='w-full lg:w-[15vw] h-[5vh] px-[5px] outline-none' type="number" name="monthsNumber" min="0" value={postInputs.monthsNumber || ""} onChange={handleChange} placeholder="Ex. 3" required/>
                         </label>
 
                         <label className='flex flex-col'>Rent deposit(Fcfa):
-                          <input className='w-full lg:w-[15vw] h-[5vh] px-[5px]' type="number" name="rentDeposit" min="0" value={postInputs.rentDeposit || ""} onChange={handleChange} placeholder="Ex. 25000" required/>
+                          <input className='w-full lg:w-[15vw] h-[5vh] px-[5px] outline-none' type="number" name="rentDeposit" min="0" value={postInputs.rentDeposit || ""} onChange={handleChange} placeholder="Ex. 25000" required/>
                         </label>
                     </div>
                     
                     <div className="flex flex-col lg:flex-row my-[1vh] justify-between mx-[2vw]">
                         <label className='flex flex-col'>Town:
-                          <input className='w-full lg:w-[15vw] h-[5vh] px-[5px]' type="text" name="town" value={postInputs.town || ""} onChange={handleChange} placeholder="Yaoundé" required/>
+                          <input className='w-full lg:w-[15vw] h-[5vh] px-[5px] outline-none' type="text" name="town" value={postInputs.town || ""} onChange={handleChange} placeholder="Yaoundé" required/>
                         </label>
 
                         <label className='flex flex-col'>Quarter:
-                          <input className='w-full lg:w-[15vw] h-[5vh] px-[5px]' type="text" name="quarter" value={postInputs.quarter || ""} onChange={handleChange} placeholder="Nkomo" required/>
+                          <input className='w-full lg:w-[15vw] h-[5vh] px-[5px] outline-none' type="text" name="quarter" value={postInputs.quarter || ""} onChange={handleChange} placeholder="Nkomo" required/>
                         </label>
                     </div>
 
                     <div className="flex flex-col lg:flex-row my-[1vh] justify-between mx-[2vw]">
                         <label className='flex flex-col'>Phone number1*:
-                          <input className='w-full lg:w-[15vw] h-[5vh] px-[5px]' type="number" name="phoneNumber1" min="0" value={postInputs.phoneNumber1 || ""} onChange={handleChange} placeholder="Ex. 699254878" required/>
+                          <input className='w-full lg:w-[15vw] h-[5vh] px-[5px] outline-none' type="number" name="phoneNumber1" min="0" value={postInputs.phoneNumber1 || ""} onChange={handleChange} placeholder="Ex. 699254878" required/>
                         </label>
 
                         <label className='flex flex-col'>Phone number2:
-                          <input className='w-full lg:w-[15vw] h-[5vh] px-[5px]' type="number" name="phoneNumber2" min="0" value={postInputs.phoneNumber2 || ""} onChange={handleChange} placeholder="Ex. 678952136"/>
+                          <input className='w-full lg:w-[15vw] h-[5vh] px-[5px] outline-none' type="number" name="phoneNumber2" min="0" value={postInputs.phoneNumber2 || ""} onChange={handleChange} placeholder="Ex. 678952136"/>
                         </label>
                     </div>
 
                     <div className="my-[1vh] mx-[2vw]">
                         <label className="flex flex-col">Home description:
-                          <textarea className="px-[5px]"name="homeDescription" rows="4" cols="10" value={postInputs.homeDescription || ""} onChange={handleChange} 
+                          <textarea className="px-[5px] outline-none" name="homeDescription" rows="4" cols="10" value={postInputs.homeDescription || ""} onChange={handleChange} 
                           placeholder="Ex. Cet appartement à louer est composé de 03 chambres, 02 salles d'eau, une cuisine, un parking et se trouve à 100m du goudron..." required/>
                         </label> 
                     </div>   
@@ -194,6 +172,7 @@ const handleSubmit = async(e) => {
           </div>
       
       </section>
+      <Footer/>
     </>
   )
 }

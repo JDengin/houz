@@ -8,7 +8,7 @@ const postSchema = new mongoose.Schema({
         required: true,
         ref: 'User'
     },  */
-
+    //postCreator here is the userid of the person who create the post
     postCreator: {
         type: String,
         required: true

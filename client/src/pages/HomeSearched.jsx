@@ -1,7 +1,6 @@
 import { useEffect } from 'react'
 import { useLocation } from 'react-router-dom';
-import { Navbar, PaginateHomeSearched, Footer } from "../components"
-import { HomeCard } from "../components"
+import { Navbar, HomeCard, PaginateHomeSearched, Footer } from "../components"
 import { useSelector, useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import { reset, getPostBySearch } from '../features/post/postSlice';
@@ -16,9 +15,6 @@ const HomeSearched = () => {
   const searchQuery = new URLSearchParams(search).get('searchQuery'); //searchQuery here is a query string in the url 
   const page = new URLSearchParams(search).get('page') || 1; //type here is a query string in the url 
 
-  //const destructuredPosts = posts.posts
-  //console.log(typeof(page))
-  //console.log(page)  
 
    useEffect(() => {
 
@@ -34,7 +30,7 @@ const HomeSearched = () => {
       <>
           <Navbar/>           
           
-          <section className=" mt-[1vh] mx-[3vw] w-[94vw] min-h-[76vh] flex flex-wrap justify-center">
+          <section className="mx-[3vw] w-[94vw] min-h-screen flex flex-wrap justify-center">
               
               {isLoading/*  || destructuredPosts?.length === undefined */ ? ( // "destructuredPosts.length" is undefined until             
                 <Spinner/>

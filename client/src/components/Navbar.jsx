@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { FaBars, FaTimes } from "react-icons/fa"
+import { BiUserCircle } from "react-icons/bi"
 import houz_logo from '../assets/houz_logo.png';
 import { logout, reset } from '../features/auth/authSlice';
 
@@ -22,7 +23,7 @@ const Navbar = () => {
   }
 
   return (
-    <header className="bg-[#1B4571] text-white w-full h-fit lg:h-[13vh] lg:items-center flex flex-col lg:flex-row justify-items-start lg:justify-between lg:px-5">
+    <header className="fixed top-0 left-0 right-0 z-10 bg-[#1B4571] text-white w-full h-fit lg:h-[13vh] lg:items-center flex flex-col lg:flex-row justify-items-start lg:justify-between lg:px-5">
                  
       <div className="flex justify-between mr-4">
         <Link to="/">
@@ -63,7 +64,10 @@ const Navbar = () => {
                   <Link to="/create_home" onClick={() => setNavbarOpen(!navbarOpen)} className="hover:no-underline hover:text-sky-400">
                       Create an Home
                   </Link>  
-                  <button className="flex justify-start lg:mx-3 hover:text-sky-400" onClick={Logout}>
+                  <Link to={`/my_homes?userid=${user?._id}&page=1`} onClick={() => setNavbarOpen(!navbarOpen)} className="hover:no-underline lg:ml-7 hover:text-sky-400">
+                      My Homes
+                  </Link>
+                  <button className="flex justify-start lg:ml-7 hover:text-sky-400" onClick={Logout}>
                       Logout
                   </button>
               </div>

@@ -75,11 +75,36 @@ export const getPostBySearch = async (req, res) => {
     }
 }
 
+//Get the posts/Homes I've created (those with the userid of the person connected)
+export const getMyHomes = async (req, res) => {
+    const { userid, page } = req.query
+
+    try {
+            const LIMIT = 4; //LIMIT here is the number of page displayed per page
+            const startIndex = (Number(page) - 1) * LIMIT;//Get the starting index of every page
+            let allPosts
+            let posts
+
+            
+
+            //Find a better way to count document matching the given searchQuery in the code below
+               
+            allPosts = await Post.find({postCreator : userid}); //return all posts matching the given searchQuery
+            posts = await Post.find({postCreator : userid}).sort({ _id: -1 }).limit(LIMIT).skip(startIndex);//return the post for one page   
+            
+            const totalPostNumber = allPosts?.length;
+            //console.log(totalPostNumber)
+            //const posts = await allPosts.sort({ _id: -1 }).limit(LIMIT).skip(startIndex);
+
+            res.status(200).json({posts, currentPage: Number(page) || 1, numberOfPages: Math.ceil(totalPostNumber / LIMIT)});
+
+    } catch (error) {
+        res.status(404).json({ message: error.message }); 
+    }
+}
 
 export const createPost = async(req, res) => {
 
-    //console.log(req.body)
-    //console.log(req.auth)
     const posts = req.body
 
     const newPostModel = new postModel({...posts, createdAt: new Date().toISOString() });

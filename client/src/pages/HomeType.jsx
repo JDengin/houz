@@ -38,7 +38,7 @@ const HomeType = () => {
     <>
       <Navbar/>
       
-      <section className=" mx-[3vw] my-[5vw] min-h-[63vh] flex flex-wrap justify-center">
+      <section className="mx-[3vw] min-h-screen flex flex-wrap justify-center">
            
         {isLoading ? (
               <Spinner/>

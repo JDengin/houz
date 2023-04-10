@@ -1,4 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
+//There is Multiples types of paginate because I dispatch inside paginate
+
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom'

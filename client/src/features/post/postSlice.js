@@ -72,6 +72,23 @@ const initialState = {
         }
     })
 
+    export const getMyHomes = createAsyncThunk('posts/getMyHomes', async(data, thunkAPI) => {
+        
+        const {userid, page} = data
+
+        try {
+              return await postService.getMyHomes(userid, page)
+            
+        } catch (error) {
+            const message = 
+            (error.response && 
+                error.response.data && 
+                error.response.data.message) ||
+                error.message || error.toString()
+            return thunkAPI.rejectWithValue(message)
+        }
+    })
+
     export const postSlice = createSlice({
         name: 'posts',
         initialState,
@@ -133,6 +150,21 @@ const initialState = {
                     state.posts = action.payload
                 })
                 .addCase(getSelectedPost.rejected, (state, action) => {
+                    state.isLoading = false
+                    state.isError = true
+                    state.message = action.payload
+                })
+                .addCase(getMyHomes.pending, (state) => {
+                    state.isLoading = true
+                })
+                .addCase(getMyHomes.fulfilled, (state, action) => {
+                    state.isLoading = false
+                    state.isSuccess = true
+                    state.posts = action.payload.posts
+                    state.currentPage = action.payload.currentPage//I don't really use currentPage for pagination, may be I should remove it here and into the corresponding controller
+                    state.numberOfPages = action.payload.numberOfPages
+                })
+                .addCase(getMyHomes.rejected, (state, action) => {
                     state.isLoading = false
                     state.isError = true
                     state.message = action.payload

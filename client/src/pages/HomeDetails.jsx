@@ -13,7 +13,11 @@ const HomeDetails = () => {
 
   const { id } = useParams() //I get the id of the post which is given in my URL
   
-  const {posts, isLoading, isError} = useSelector((state) => state.posts)
+  const {posts, isLoading, isSuccess, isError, message} = useSelector((state) => state.posts)
+
+  console.log(Object.keys(posts).length)
+
+  const postsLength = Object.keys(posts).length
 
   useEffect(() => {
 
@@ -37,44 +41,51 @@ const HomeDetails = () => {
     <>
       <Navbar/>
 
-      {isLoading ? (<Spinner/>) : (
-        <div className=" mx-[2vw] lg:mx-[10vw] mt-[3vh] mb-[3vh]">
-          <div className="flex flex-col lg:flex-row lg:justify-between mb-2">
-            <h1 className="text-lg lg:text-2xl font-semibold">{`${posts?.homeType} à louer à ${posts?.town} au quartier ${posts?.quarter}`}</h1>
-            <p className="text-lg lg:text-2xl text-blue-800 font-bold">{`${posts?.price} Fcfa/mois`}</p>
-          </div>
-          <p className="font-semibold">{`Tel: ${posts?.phoneNumber1} / ${posts?.phoneNumber2}`}</p>
+        <section className="mt-[15vh] min-h-[80vh]">
 
-          <div className="flex flex-col lg:flex-row justify-between mb-2">
-            <p className="font-semibold">{`Versement à l'entrée : ${posts?.monthsNumber} mois de loyer`}</p>
-            <p className="text-blue-800 font-semibold">{`Caution : ${posts?.rentDeposit} Fcfa`}</p>
-          </div>
+          {isLoading ? (<Spinner/>) : 
 
-          <div className="mt-[2vh] mb-[4vh] w-full h-fit flex flex-col lg:grid grid-row-2 grid-flow-col gap-3  lg:gap-1">  
-              
-              <div className="rounded-2xl lg:rounded-none row-span-2 col-span-2">
-                <img src={sample_home} className="rounded-2xl lg:rounded-none h-full"/>
-              </div>
-              <div className="rounded-2xl lg:rounded-none">
-                  <img src={sample_home} className="h-full rounded-2xl lg:rounded-none"/>
-              </div>
-              <div className="rounded-2xl lg:rounded-none">
-                  <img src={sample_home} className="h-full rounded-2xl lg:rounded-none"/>
-              </div>
-              <div className="rounded-2xl lg:rounded-none">
-                  <img src={sample_home} className="h-full rounded-2xl lg:rounded-none"/>
-              </div>
-              <div className="rounded-2xl lg:rounded-none">
-                  <img src={sample_home} className="h-full rounded-2xl lg:rounded-none"/>
-              </div>
-              
-          </div>
+            (isSuccess && postsLength !== 0 ? (       
+                <div className=" mx-[2vw] lg:mx-[10vw] mt-[3vh] mb-[3vh]">
+                    <div className="flex flex-col lg:flex-row lg:justify-between mb-2">
+                      <h1 className="text-lg lg:text-2xl font-semibold">{`${posts?.homeType} à louer à ${posts?.town} au quartier ${posts?.quarter}`}</h1>
+                      <p className="text-lg lg:text-2xl text-blue-800 font-bold">{`${posts?.price} Fcfa/mois`}</p>
+                    </div>
+                    <p className="font-semibold">{`Tel: ${posts?.phoneNumber1} / ${posts?.phoneNumber2}`}</p>
 
-          <div className="font-semibold bg-blue-200 text-black p-2 rounded-md w-full  "> 
-            <span className="font-bold">Description : </span> {`${posts?.homeDescription}`}
-          </div>       
-        </div> )
-      }
+                    <div className="flex flex-col lg:flex-row justify-between mb-2">
+                      <p className="font-semibold">{`Versement à l'entrée : ${posts?.monthsNumber} mois de loyer`}</p>
+                      <p className="text-blue-800 font-semibold">{`Caution : ${posts?.rentDeposit} Fcfa`}</p>
+                    </div>
+
+                    <div className="mt-[2vh] mb-[4vh] w-full h-fit flex flex-col lg:grid grid-row-2 grid-flow-col gap-3  lg:gap-1">  
+                        
+                        <div className="rounded-2xl lg:rounded-none row-span-2 col-span-2">
+                          <img src={sample_home} className="rounded-2xl lg:rounded-none h-full"/>
+                        </div>
+                        <div className="rounded-2xl lg:rounded-none">
+                            <img src={sample_home} className="h-full rounded-2xl lg:rounded-none"/>
+                        </div>
+                        <div className="rounded-2xl lg:rounded-none">
+                            <img src={sample_home} className="h-full rounded-2xl lg:rounded-none"/>
+                        </div>
+                        <div className="rounded-2xl lg:rounded-none">
+                            <img src={sample_home} className="h-full rounded-2xl lg:rounded-none"/>
+                        </div>
+                        <div className="rounded-2xl lg:rounded-none">
+                            <img src={sample_home} className="h-full rounded-2xl lg:rounded-none"/>
+                        </div>
+                        
+                    </div>
+
+                    <div className="font-semibold bg-blue-200 text-black p-2 rounded-md w-full  "> 
+                      <span className="font-bold">Description : </span> {`${posts?.homeDescription}`}
+                    </div>       
+                </div> ) : (<p className="text-center my-10">No home matches your search</p> )
+            )
+          }
+
+        </section>
 
       <Footer/>      
 
