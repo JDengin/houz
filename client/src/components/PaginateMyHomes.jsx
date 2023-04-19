@@ -1,17 +1,17 @@
 /* eslint-disable react/jsx-props-no-spreading */
 //There is Multiples types of paginate because I dispatch inside paginate
 
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useLocation } from 'react-router-dom'
+// import { useEffect } from 'react';
+// import { useDispatch, useSelector } from 'react-redux';
+// import { useLocation } from 'react-router-dom'
 import { Pagination, PaginationItem } from '@mui/material';
 import { Link } from 'react-router-dom';
-import { getMyHomes } from '../features/post/postSlice';
+//import { getMyHomes } from '../features/post/postSlice';
 
-const PaginateMyHomes = ({userid, page }) => {
-  const dispatch = useDispatch()
+const PaginateMyHomes = ({userid, page, numberOfPages }) => {
+  //const dispatch = useDispatch()
   //const location = useLocation()
-  const { numberOfPages } = useSelector((state) => state.posts)
+  //const { numberOfPages } = useSelector((state) => state.posts)
   //const path = location.pathname
 
   /* let post;
@@ -23,13 +23,11 @@ const PaginateMyHomes = ({userid, page }) => {
     post = destructuredPosts
   }  */
 
-  console.log (numberOfPages)
-
-  useEffect(() => {
+  /* useEffect(() => {
     if (page) {
       dispatch(getMyHomes({userid, page}))
     }
-  }, [dispatch, page]);
+  }, [dispatch, page]); */
 
   return (
     <Pagination

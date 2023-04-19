@@ -26,15 +26,13 @@ const Home = () => {
       toast.error(message)
     } 
 
-    if(page && (page <= numberOfPages)){
-      dispatch(getAllPosts(page)) 
-    }
+    dispatch(getAllPosts(page))
    
     return () => {
       dispatch(reset())       
     }    
     
-  }, [page]) 
+  }, [dispatch, page]) 
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -64,7 +62,7 @@ const Home = () => {
       
       <div className="mx-[50px] my-[50px]">
         <p className='text-2xl mx-16 mb-5'>NEW HOMES </p>
-        {/* <p className='mx-16'>Based on your view history</p> */}
+        {/* <p className='mx-16'>Based on your view history</p> */}   
         
         {isLoading ? (
             <Spinner/>
@@ -84,7 +82,7 @@ const Home = () => {
 
       <div className='flex justify-center my-[2vh]'>   
       
-          <PaginateHome page={page}/>
+          <PaginateHome page={page} numberOfPages={numberOfPages}/>
       
       </div>
       

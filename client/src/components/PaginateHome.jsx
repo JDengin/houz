@@ -6,10 +6,10 @@ import { Pagination, PaginationItem } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { getAllPosts } from '../features/post/postSlice';
 
-const PaginateHome = ({ page }) => {
+const PaginateHome = ({ page, numberOfPages }) => {
   const dispatch = useDispatch()
   //const location = useLocation()
-  const { numberOfPages } = useSelector((state) => state.posts)
+  //const { numberOfPages } = useSelector((state) => state.posts)
   //const path = location.pathname
 
   /* let post;
@@ -21,11 +21,11 @@ const PaginateHome = ({ page }) => {
     post = destructuredPosts
   } 
    */
-  useEffect(() => {
+  /* useEffect(() => {
     if (page) {
       dispatch(getAllPosts(page))
     }
-  }, [dispatch, page]);
+  }, [dispatch, page]); */
 
   return (
     <Pagination

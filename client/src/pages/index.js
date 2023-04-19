@@ -5,6 +5,8 @@ import MyHomes from './MyHomes';
 import Auth from './Auth';
 import HomeType from './HomeType';
 import HomeSearched from './HomeSearched';
+import UpdatePostModal from '../components/UpdatePostModal';
+import Footer from '../components/Footer';
 
 
 export {
@@ -14,5 +16,7 @@ export {
     CreateHome, 
     MyHomes,
     HomeType,
-    HomeSearched
+    HomeSearched,
+    UpdatePostModal,
+    Footer
 }

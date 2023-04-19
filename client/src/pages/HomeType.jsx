@@ -18,7 +18,7 @@ const HomeType = () => {
   const searchQuery = new URLSearchParams(search).get('type'); //searchQuery here is a query string in the url 
   const page = new URLSearchParams(search).get('page') || 1; //type here is a query string in the url 
 
-  const { posts, isLoading, isError, isSuccess, message, reset } = useSelector((state) => (state.posts))
+  const { posts, numberOfPages, isLoading, isError, isSuccess, message, reset } = useSelector((state) => (state.posts))
 
   useEffect(() => {
 
@@ -43,14 +43,14 @@ const HomeType = () => {
         {isLoading ? (
               <Spinner/>
             ) : ( posts?.length > 0 ? (
-                    <div className='flex flex-wrap items-center justify-center'>
+                    <div className='my-[15vh] flex flex-wrap items-center justify-center'>
                       {posts.map((post) => (
                         <HomeCard key={post._id} post={post} />
                       ))}
                     </div>                   
 
                   ) : (
-                    <p>We have no such type of home</p>
+                    <p className='my-[15vh]'>We have no such type of home</p>
                   ) 
             )            
             
@@ -61,7 +61,7 @@ const HomeType = () => {
       <div className='flex justify-center my-[2vh]'>   
       
           {/* {(posts.length > 8) && <Paginate2 page={page} posts={posts}/>} */}
-          <PaginateHomeSearched searchQuery={searchQuery} page={page}/>
+          <PaginateHomeSearched searchQuery={searchQuery} page={page} numberOfPages={numberOfPages}/>
 
       </div>
             

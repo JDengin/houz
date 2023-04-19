@@ -10,37 +10,34 @@ const HomeSearched = () => {
 
   const dispatch = useDispatch();
 
-  const { posts, isSuccess, isLoading, isError, message } = useSelector((state) => state.posts)
+  const { posts, numberOfPages, isSuccess, isLoading, isError, message } = useSelector((state) => state.posts)
   const search = useLocation().search
   const searchQuery = new URLSearchParams(search).get('searchQuery'); //searchQuery here is a query string in the url 
   const page = new URLSearchParams(search).get('page') || 1; //type here is a query string in the url 
 
 
    useEffect(() => {
-
       if(isError) {
         toast.error(message)
-      } 
-      //dispatch(getPostBySearch(searchQuery, Number(page))) 
-      dispatch(getPostBySearch({searchQuery, page})) 
-    
+      }       
+      dispatch(getPostBySearch({searchQuery, page}))     
    }, [dispatch, page]) 
 
   return (
       <>
           <Navbar/>           
           
-          <section className="mx-[3vw] w-[94vw] min-h-screen flex flex-wrap justify-center">
+          <section className=" mx-[3vw] w-[94vw] min-h-screen flex flex-wrap justify-center">
               
               {isLoading/*  || destructuredPosts?.length === undefined */ ? ( // "destructuredPosts.length" is undefined until             
                 <Spinner/>
                 ) : (posts?.length > 0 ? (
-                        <div className='flex flex-wrap items-center justify-center'>
+                        <div className='my-[15vh] flex flex-wrap items-center justify-center'>
                           {(posts).map((post) => (
                             <HomeCard key={post._id} post={post} />
                           ))}
                         </div>
-                      ) : ( <p>No home matches your search</p> ) 
+                      ) : ( <p className='my-[15vh]'>No home matches your search</p> ) 
                     )       
               }       
 
@@ -52,7 +49,7 @@ const HomeSearched = () => {
           <div className='flex justify-center my-[2vh]'>   
       
             {/* {(posts.length > 8) && <Paginate2 page={page} posts={posts}/>} */}
-            <PaginateHomeSearched searchQuery={searchQuery} page={page}/>
+            <PaginateHomeSearched searchQuery={searchQuery} page={page} numberOfPages={numberOfPages}/>
       
          </div>
   
