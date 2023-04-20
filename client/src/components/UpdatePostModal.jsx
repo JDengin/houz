@@ -1,17 +1,43 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useLocation } from 'react-router-dom';
 import { RiCloseCircleLine } from "react-icons/ri"
+import { updatePost, getMyHomes } from '../features/post/postSlice';
 
-const UpdatePostModal = ({showUpdateModal, setShowUpdateModal, handleCloseUpdateModal}) => {
-    const [postInputs, setPostInputs] = useState({});
-    
+
+const UpdatePostModal = ({post, showUpdateModal, setShowUpdateModal, handleCloseUpdateModal}) => {
+
+    const dispatch = useDispatch()
+  
+    const [postInputs, setPostInputs] = useState(post); //when I open the updatePostModal, initial values are those of original post
+    const search = useLocation().search
+    const userid = new URLSearchParams(search).get('userid'); //searchQuery here is a query string in the url 
+
     const handleChange = (e) => {
         const name = e.target.name;
         const value = e.target.value;
         setPostInputs(values => ({...values, [name]: value}))
     }
 
+    const postId = post._id;
+    const FIRST_PAGE = 1;
+
+    //This function allows me when I click outside modal window to close the window
     const onClose = (e) => {
       if(e.target.id === "ModalContainer") handleCloseUpdateModal() //With just one line inside if, I don't need to add curly bracket
+    }
+
+    const handleSubmit = (e) => {
+      e.preventDefault();
+
+      //postInputs here is updatedPost
+      //dispatch(updatePost({postId, postInputs}));
+
+      handleCloseUpdateModal();
+
+     // dispatch(getMyHomes({userid, FIRST_PAGE })) //Allow me to directly display the homes without the deleted home
+      
+      //const updatedPost = postInputs
     }
 
     return (
@@ -24,10 +50,10 @@ const UpdatePostModal = ({showUpdateModal, setShowUpdateModal, handleCloseUpdate
                 
                 <p className="relative flex justify-center text-2xl font-semibold my-2">
                     Updating the selected post
-                    <span onClick={handleCloseUpdateModal} className="cursor-pointer absolute right-2"><RiCloseCircleLine className="text-3xl"/></span> 
+                    <span onClick={handleCloseUpdateModal} className="cursor-pointer absolute right-2 hover:opacity-50"><RiCloseCircleLine className="text-3xl"/></span> 
                 </p>                             
 
-                <form /* onSubmit={handleSubmit} */ className="flex justify-center" encType="multipart/form-data">
+                <form onSubmit={handleSubmit} className="flex justify-center" encType="multipart/form-data">
                   
                   <div className='flex flex-col w-[90vw] sm:w-[70vw] lg:w-[40vw]'>
 

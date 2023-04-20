@@ -20,6 +20,22 @@ const createPost = async (posts, token) => {
     return response.data;
 }
 
+const deletePost = async (postId) => {
+    const response = await axios.delete(`http://localhost:8080/posts/deletePost/${postId}`)
+   
+    return response.data
+}
+
+const updatePost = async (postId, postInputs) => {
+
+    console.log("Inside updatePost Service")
+    console.log(postInputs)
+
+    const response = await axios.patch(`http://localhost:8000/posts/updatePost/${postId}`, {})
+
+    return response.data
+}
+
 const getAllPosts = async (page) => {
     /* const config = {
         headers: {
@@ -53,10 +69,10 @@ const getMyHomes = async (userid, page) => {
     return response.data    
 }
 
-
-
 const postService = {
     createPost,
+    deletePost,
+    updatePost,
     getAllPosts,
     getPostBySearch,
     getSelectedPost,

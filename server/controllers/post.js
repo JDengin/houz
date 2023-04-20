@@ -2,7 +2,6 @@ import mongoose from 'mongoose';
 import * as dotenv from 'dotenv';
 //import { v2 as cloudinary } from 'cloudinary';
 import Post from '../mongodb/models/postModels.js';
-import postModel from '../mongodb/models/postModels.js';
 
 dotenv.config();
 
@@ -83,9 +82,7 @@ export const getMyHomes = async (req, res) => {
             const LIMIT = 4; //LIMIT here is the number of page displayed per page
             const startIndex = (Number(page) - 1) * LIMIT;//Get the starting index of every page
             let allPosts
-            let posts
-
-            
+            let posts           
 
             //Find a better way to count document matching the given searchQuery in the code below
                
@@ -106,14 +103,53 @@ export const getMyHomes = async (req, res) => {
 export const createPost = async(req, res) => {
 
     const posts = req.body
-
-    const newPostModel = new postModel({...posts, createdAt: new Date().toISOString() });
+    const newPost = new Post({...posts, createdAt: new Date().toISOString() });
     
     try {
-        await newPostModel.save();
+        await newPost.save();
 
-        res.status(201).json(newPostModel);     
+        res.status(201).json(newPost);     
     } catch (error) {
         res.status(409).json({ message: error.message });        
     } 
+}
+
+export const deletePost = async(req, res) => {
+    const { id } = req.params;
+
+    try {
+        if(!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No post with id: ${id}`);
+
+        const result = await Post.findByIdAndDelete(id);
+
+        if(result){
+            return res.status(200).json({message: "Post deleted successfully."})
+        } else {
+            return res.status(404).send(`No post with id: ${id}`);
+        }        
+        
+    } catch (error) {
+        res.status(409).json({ message: error.message });        
+    }
+}
+
+export const updatePost = async(req, res) => {
+    console.log("inside updatePost controller")
+    const { id } = req.params;
+    const updatedPost = req.body
+
+    if(!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No post with id: ${id}`)
+    
+    const result = await Post.findByIdAndUpdate(id, updatedPost, {new: true}); //Option  "new: true" allows to return the document after updating, "new: false" return the doc before updating. "new: false" is the default value
+    
+    if(result){
+        res.status(200).json({result, message: `Your post with id: ${id} has been updated`});
+    } else {
+        res.status(400).json({message: "Something went wrong"})
+    }
+    try {
+        
+    } catch (error) {
+        res.status(409).json({ message: error.message });        
+    }
 }

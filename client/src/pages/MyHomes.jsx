@@ -9,7 +9,8 @@ import { reset, getMyHomes } from '../features/post/postSlice';
 const MyHomes = () => {
 
   const dispatch = useDispatch();
-  const [showUpdateModal, setShowUpdateModal] = useState(false);
+  
+  /*const [showUpdateModal, setShowUpdateModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   const handleCloseUpdateModal = () => {
@@ -18,7 +19,7 @@ const MyHomes = () => {
 
   const handleCloseDeleteModal = () => {
     setShowDeleteModal(false);
-  }
+  } */
 
   const { posts, numberOfPages, isSuccess, isLoading, isError, message } = useSelector((state) => state.posts)
   const search = useLocation().search
@@ -30,10 +31,16 @@ const MyHomes = () => {
 
       if(isError) {
         toast.error(message)
-      }   
+      }  
+      
       dispatch(getMyHomes({userid, Page}))
+
+      /* return () => {
+        dispatch(reset())       
+      }    */
     
-   }, [dispatch, page]) 
+  }, [dispatch, page, isSuccess]) 
+     
 
   return (
     <>
@@ -52,25 +59,6 @@ const MyHomes = () => {
                       ) : ( <p className='my-[15vh]'>You have no home in your home list</p> ) 
                     )       
               }     
-
-              <button
-                className="bg-blue-200 text-black active:bg-blue-500 font-bold px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1"
-                type="button"
-                onClick={() => setShowUpdateModal(true)}
-              >
-                 UpdatePost
-              </button>  
-
-              <button
-                className="bg-blue-200 text-black active:bg-blue-500 font-bold px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1"
-                type="button"
-                onClick={() => setShowDeleteModal(true)}
-              >
-                 DeletePost
-              </button>
-
-              <UpdatePostModal handleCloseUpdateModal={handleCloseUpdateModal} showUpdateModal={showUpdateModal} setShowUpdateModal={setShowUpdateModal}/>
-              <DeletePostModal handleCloseDeleteModal={handleCloseDeleteModal} showDeleteModal={showDeleteModal} setShowDeleteModal={setShowDeleteModal}/> 
             
       </section>
 

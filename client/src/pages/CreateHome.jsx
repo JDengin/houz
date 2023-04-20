@@ -88,7 +88,7 @@ const handleSubmit = async(e) => {
       <Navbar/>
       <section className="mt-[15vh] flex justify-center items-center">
 
-          <div className="drop-shadow-lg my-10 bg-slate-300 w-full lg:w-[40vw]  min-h-[70vh]">
+          <div className="drop-shadow-lg my-10 bg-slate-300 w-[80vw] lg:w-[40vw]  min-h-[70vh]">
               
               <p className="flex justify-center text-2xl font-semibold my-2">
                   HOME POST FORM
@@ -148,7 +148,7 @@ const handleSubmit = async(e) => {
 
                     <div className="my-[1vh] mx-[2vw]">
                         <label className="flex flex-col">Home description:
-                          <textarea className="px-[5px] outline-none" name="homeDescription" rows="4" cols="10" value={postInputs.homeDescription || ""} onChange={handleChange} 
+                          <textarea className="px-[5px] outline-none resize-none" name="homeDescription" rows="4" cols="10" value={postInputs.homeDescription || ""} onChange={handleChange} 
                           placeholder="Ex. Cet appartement à louer est composé de 03 chambres, 02 salles d'eau, une cuisine, un parking et se trouve à 100m du goudron..." required/>
                         </label> 
                     </div>   

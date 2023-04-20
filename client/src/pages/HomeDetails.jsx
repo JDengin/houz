@@ -15,7 +15,7 @@ const HomeDetails = () => {
   
   const {posts, isLoading, isSuccess, isError, message} = useSelector((state) => state.posts)
 
-  console.log(Object.keys(posts).length)
+  //console.log(Object.keys(posts).length)
 
   const postsLength = Object.keys(posts).length
 

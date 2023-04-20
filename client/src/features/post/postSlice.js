@@ -25,6 +25,37 @@ const initialState = {
         }
     })
 
+    export const deletePost = createAsyncThunk('posts/deletePost', async(postId, thunkAPI) => {
+        
+        try {
+            return await postService.deletePost(postId)
+        } catch (error) {
+            const message = 
+            (error.response && 
+                error.response.data && 
+                error.response.data.message) ||
+                error.message || error.toString()
+            return thunkAPI.rejectWithValue(message)
+        }
+    })
+
+    export const updatePost = createAsyncThunk('posts/updatePost', async(data, thunkAPI) => {
+
+        console.log("Inside updatePost slice")
+        
+        const {postId, postInputs} = data
+        try {
+            return await postService.updatePost(postId, postInputs)
+        } catch (error) {
+            const message = 
+            (error.response && 
+                error.response.data && 
+                error.response.data.message) ||
+                error.message || error.toString()
+            return thunkAPI.rejectWithValue(message)
+        }
+    })
+
     export const getAllPosts = createAsyncThunk('posts/getAllPosts', async(page, thunkAPI) => {
         try {
             //const token = thunkAPI.getState().auth.user.token
@@ -46,8 +77,7 @@ const initialState = {
         const {searchQuery, page} = data
 
         try {
-              return await postService.getPostBySearch(searchQuery, page)
-            
+              return await postService.getPostBySearch(searchQuery, page)            
         } catch (error) {
             const message = 
             (error.response && 
@@ -107,6 +137,34 @@ const initialState = {
                     state.posts.push(action.payload)
                 })
                 .addCase(createPost.rejected, (state, action) => {
+                    state.isLoading = false
+                    state.isError = true
+                    state.message = action.payload
+                })
+                .addCase(deletePost.pending, (state) => {
+                    state.isLoading = true
+                })
+                .addCase(deletePost.fulfilled, (state, action) => {
+                    state.isLoading = false
+                    state.isSuccess = true
+                    state.posts = state.posts.filter(
+                        (post) => post._id !== action.payload.id
+                    )
+                })
+                .addCase(deletePost.rejected, (state, action) => {
+                    state.isLoading = false
+                    state.isError = true
+                    state.message = action.payload
+                })
+                .addCase(updatePost.pending, (state) => {
+                    state.isLoading = true
+                })
+                .addCase(updatePost.fulfilled, (state, action) => {
+                    state.isLoading = false
+                    state.isSuccess = true
+                    state.posts = state.posts.map((post) => (post._id === action.payload._id ? action.payload : post))
+                })
+                .addCase(updatePost.rejected, (state, action) => {
                     state.isLoading = false
                     state.isError = true
                     state.message = action.payload
