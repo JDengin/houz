@@ -31,13 +31,12 @@ const UpdatePostModal = ({post, showUpdateModal, setShowUpdateModal, handleClose
       e.preventDefault();
 
       //postInputs here is updatedPost
-      //dispatch(updatePost({postId, postInputs}));
+      dispatch(updatePost({postId, postInputs}));
 
       handleCloseUpdateModal();
 
-     // dispatch(getMyHomes({userid, FIRST_PAGE })) //Allow me to directly display the homes without the deleted home
-      
-      //const updatedPost = postInputs
+      dispatch(getMyHomes({userid, FIRST_PAGE })) //Allow me to directly display the homes without the deleted home
+
     }
 
     return (

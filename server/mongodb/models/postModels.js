@@ -13,6 +13,10 @@ const postSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    postImages: { 
+        type: [String], 
+        default: [] 
+    },
     homeType: String,
     price: Number,
     monthsNumber: Number,

@@ -13,7 +13,7 @@ const initialState = {
     //to perform actions as him
 
     export const createPost = createAsyncThunk('posts/createPost', async(posts, thunkAPI) => {
-        
+        console.log(...posts)
         try {
             const  token = thunkAPI.getState().auth.user.token
             return await postService.createPost(posts, token)
@@ -40,9 +40,7 @@ const initialState = {
     })
 
     export const updatePost = createAsyncThunk('posts/updatePost', async(data, thunkAPI) => {
-
-        console.log("Inside updatePost slice")
-        
+       
         const {postId, postInputs} = data
         try {
             return await postService.updatePost(postId, postInputs)
@@ -221,6 +219,7 @@ const initialState = {
                     state.posts = action.payload.posts
                     state.currentPage = action.payload.currentPage//I don't really use currentPage for pagination, may be I should remove it here and into the corresponding controller
                     state.numberOfPages = action.payload.numberOfPages
+                    state.message = "All homes successfully retrieved"
                 })
                 .addCase(getMyHomes.rejected, (state, action) => {
                     state.isLoading = false

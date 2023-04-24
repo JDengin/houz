@@ -7,17 +7,19 @@ const API_URL = 'http://localhost:8080/posts/';
 //The token is like a password, it allows the user to authentificate to dataverse software apis
 //to perform actions as him
 
-
 const createPost = async (posts, token) => {
     const config = {
         headers: {
             Authorization: `Bearer ${token}`,
         },
     }
+    
+    console.log(...posts)
 
-    const response = await axios.post('http://localhost:8080/posts/', posts);
+    const response = await axios.post('http://localhost:8080/posts/uploadPost', posts);
 
-    return response.data;
+    return response.data; 
+    
 }
 
 const deletePost = async (postId) => {
@@ -28,10 +30,7 @@ const deletePost = async (postId) => {
 
 const updatePost = async (postId, postInputs) => {
 
-    console.log("Inside updatePost Service")
-    console.log(postInputs)
-
-    const response = await axios.patch(`http://localhost:8000/posts/updatePost/${postId}`, {})
+    const response = await axios.patch(`http://localhost:8080/posts/updatePost/${postId}`, postInputs)
 
     return response.data
 }

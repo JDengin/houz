@@ -35,6 +35,8 @@ const MyHomes = () => {
       
       dispatch(getMyHomes({userid, Page}))
 
+      //if(isSuccess) toast.success(message)
+      
       /* return () => {
         dispatch(reset())       
       }    */

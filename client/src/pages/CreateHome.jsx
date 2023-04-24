@@ -36,51 +36,83 @@ const CreateHome = () => {
 
 //Functions to preview multiple images 
 
-const handleImg = (e) => {
+  const handleImg = (e) => {
     
-   if(e.target.files) {
-    //I create an array of images files called "pictures"
-    setPictures([...e.target.files]);
-    const imageArray = Array.from(e.target.files).map((file) => URL.createObjectURL(file));
-    setUrlImages((prevImages) => prevImages.concat(imageArray));
-   } 
-};
+    if(e.target.files) {
+      //I create an array of images files called "pictures"
+      setPictures([...e.target.files]);
 
-const render = (data) => {
-  return data.map((image) => {
-    return <img className='w-[100px] h-[100px]' src={image} alt="" key={image} />;
-  });
-};
+      const imagePreviewArray = Array.from(e.target.files).map((file) => URL.createObjectURL(file));
+      setUrlImages((prevImage) => prevImage.concat(imagePreviewArray));
 
-const handleSubmit = async(e) => {
-    e.preventDefault();
-    
+    }
+
+    /* const postImageArray = Array.from(e.target.files).map((i) => pictures[i].name) 
+    PostImagesArray = ((prevImage) => prevImage.concat(postImageArray));
+    } */ 
+  };
+
+  const render = (data) => {
+    return data.map((image) => {
+      return <img className='w-[100px] h-[100px]' src={image} alt="" key={image} />;
+    });
+  };
+
+  const handleSubmit = async(e) => {
+    e.preventDefault();    
 
     let j = 0; // j here is postInputs key
 
     //setLoading(true);
-    //let formData = new FormData();
+    let formData = new FormData();
     //const postData = new FormData();
 
-    /* for (const key of Object.keys(urlImages)) {
-      formData.append('filesImg', pictures[key]);  
-    } */  
+    //urlImages
 
+    for (const key of Object.keys(pictures)) {
+      formData.append(`postImages[${key}]`, pictures[key]);  
+    }  
+   
     //Object.keys give me all the keys of postInputs array
-    
-    /* for (const j of Object.keys(postInputs)) {
-      formData.append(`${j}`, postInputs[j]);     
-    }  */       
-
-    //dispatch(createPost(...formData));
 
     const posts = {...postInputs, postCreator: userId} //add postCreator field to posts
 
+    for (const j of Object.keys(posts)) {
+      formData.append(`${j}`, posts[j]);     
+    }      
+    
+    //let postImagesArray = []
+    
+    /* for (let i = 0; i < pictures.length; i++) {
+      postImagesArray[i] = pictures[i].name
+    } */
+
+   /*  for (let i = 0; i < pictures.length; i++) {
+      postImagesArray[i] = pictures[i]
+    } */
+
+    //formData.append('postImagesArray', JSON.stringify(postImagesArray))
+
+    //console.log(postImagesArray)
+    console.log(pictures)
+    console.log(...formData)
+
+   dispatch(createPost(formData));
+
+   /*  console.log(...formData)
+    console.log(postInputs)
+    console.log(pictures[1].name)
+    console.log(urlImages) */
+
+    
+
+    //const posts = {...postInputs, postCreator: userId} //add postCreator field to posts
+
     //console.log(posts)
 
-    dispatch(createPost(posts));
+    //dispatch(createPost(posts));
   
-    navigate('/');           
+   // navigate('/');           
   }; 
 
   return (
@@ -152,6 +184,10 @@ const handleSubmit = async(e) => {
                           placeholder="Ex. Cet appartement à louer est composé de 03 chambres, 02 salles d'eau, une cuisine, un parking et se trouve à 100m du goudron..." required/>
                         </label> 
                     </div>   
+                    
+                    <input type="file" name="postImages" multiple onChange={handleImg} /> 
+
+                    {render(urlImages)}
 
                     <div className="flex justify-center my-[1vh] ">
                         <button type="submit" className='flex justify-center items-center bg-[#1B4571] w-full lg:w-[36vw] h-[40px] mx-3 my-2 text-white hover:bg-sky-500'>
@@ -159,7 +195,7 @@ const handleSubmit = async(e) => {
                         </button> 
                     </div>  
 
-                    {/* <input type="file" name="filesImg" multiple onChange={handleImg} />  */}
+                    
 
                 </div>
 
@@ -167,8 +203,7 @@ const handleSubmit = async(e) => {
 
               {/* The render function with the multiple image state */}
               
-              {/* {render(urlImages)} */}
- 
+                 
           </div>
       
       </section>

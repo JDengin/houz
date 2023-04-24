@@ -102,16 +102,28 @@ export const getMyHomes = async (req, res) => {
 
 export const createPost = async(req, res) => {
 
-    const posts = req.body
-    const newPost = new Post({...posts, createdAt: new Date().toISOString() });
+    console.log(req.files)
+    console.log(req.body)
+
+    const allFiles = req.files
+    const allBody = req.body
+
+  
+    res.send({message: "files uploaded", allFiles, allBody});
+
+    // const posts = req.body
+    // const newPost = new Post({...posts, createdAt: new Date().toISOString() });
+
+    // console.log(newPost)
+    // console.log(req.file)
     
-    try {
+    /* try {
         await newPost.save();
 
-        res.status(201).json(newPost);     
+        res.status(201).json({ message:"Post created", newPost});     
     } catch (error) {
         res.status(409).json({ message: error.message });        
-    } 
+    }  */
 }
 
 export const deletePost = async(req, res) => {
@@ -134,7 +146,7 @@ export const deletePost = async(req, res) => {
 }
 
 export const updatePost = async(req, res) => {
-    console.log("inside updatePost controller")
+
     const { id } = req.params;
     const updatedPost = req.body
 

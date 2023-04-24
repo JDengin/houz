@@ -32,27 +32,40 @@ app.get('/', async (req, res) => {
     });
 });
 
-
 /*____________MULTER____________*/
 
-/* const storage = multer.diskStorage({
+const storage = multer.diskStorage({
   destination: function ( req, file, cb) {
-    cb(null, '/uploads') //cb(null, __dirname + '/uploads')
+    cb(null, './uploads') //cb(null, __dirname + '/uploads')
   },
   filename: function (req, file, cb) {
     const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E19)
     cb(null, file.fieldname + '-' + uniqueSuffix)
   }
+  
 }) 
 
 const upload = multer({ storage: storage });
 
-app.use(upload.array());
-app.use(express.static('public'));
+//app.use(upload.array());
+//app.use(express.static('public'));
 
-app.post('/', upload.array('filesImg'), createPost); */
+app.post('/posts/uploadPost', upload.array('postImages'), createPost); 
 
-//limit the number of allowed images to upload at 10
+/* app.post('/posts/uploadPost', upload.array('postImages'), (req, res) => { 
+  const allFiles = req.files
+  const allBody = req.body
+
+  try {
+    res.send({message: "files uploaded", allFiles, allBody});
+    console.log(req.files)
+    console.log(req.body)
+  } catch (error) {
+    res.send(400);
+  }
+});   */
+
+//Find a way to limit the number of allowed images to upload at 10
 
 /*____________MULTER_____________*/
 
