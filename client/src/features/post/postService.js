@@ -12,13 +12,18 @@ const createPost = async (posts, token) => {
         headers: {
             Authorization: `Bearer ${token}`,
         },
-    }
-    
+    }    
     console.log(...posts)
 
-    const response = await axios.post('http://localhost:8080/posts/uploadPost', posts);
+    try {
+        const response = await axios.post('http://localhost:8080/posts/uploadPost', posts);
 
-    return response.data; 
+        return response.data;     
+        
+    } catch (error) {
+        res.status(500).json(error)
+    }
+
     
 }
 

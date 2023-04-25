@@ -36,11 +36,12 @@ app.get('/', async (req, res) => {
 
 const storage = multer.diskStorage({
   destination: function ( req, file, cb) {
-    cb(null, './uploads') //cb(null, __dirname + '/uploads')
+    cb(null, './uploads') //cb(null, __dirname + '/uploads')    //'./uploads'
   },
   filename: function (req, file, cb) {
     const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E19)
-    cb(null, file.fieldname + '-' + uniqueSuffix)
+    //cb(null, file.fieldname + '-' + uniqueSuffix)
+    cb(null, 'Img' + '-' + uniqueSuffix)
   }
   
 }) 
@@ -50,7 +51,7 @@ const upload = multer({ storage: storage });
 //app.use(upload.array());
 //app.use(express.static('public'));
 
-app.post('/posts/uploadPost', upload.array('postImages'), createPost); 
+app.post('/posts/uploadPost', upload.array('postImages'), createPost);
 
 /* app.post('/posts/uploadPost', upload.array('postImages'), (req, res) => { 
   const allFiles = req.files

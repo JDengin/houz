@@ -70,7 +70,7 @@ const CreateHome = () => {
     //urlImages
 
     for (const key of Object.keys(pictures)) {
-      formData.append(`postImages[${key}]`, pictures[key]);  
+      formData.append("postImages", pictures[key]);  //`postImages[${key}]`
     }  
    
     //Object.keys give me all the keys of postInputs array
@@ -112,7 +112,7 @@ const CreateHome = () => {
 
     //dispatch(createPost(posts));
   
-   // navigate('/');           
+    navigate('/');           
   }; 
 
   return (

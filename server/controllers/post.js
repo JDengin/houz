@@ -101,29 +101,19 @@ export const getMyHomes = async (req, res) => {
 }
 
 export const createPost = async(req, res) => {
-
-    console.log(req.files)
-    console.log(req.body)
-
-    const allFiles = req.files
-    const allBody = req.body
-
-  
-    res.send({message: "files uploaded", allFiles, allBody});
-
-    // const posts = req.body
-    // const newPost = new Post({...posts, createdAt: new Date().toISOString() });
-
-    // console.log(newPost)
-    // console.log(req.file)
     
-    /* try {
+    const filenameArray = req.files.map((img) => img.filename) //copy all the files filename inside array filenameArray
+
+    const posts = req.body
+    const newPost = new Post({...posts, createdAt: new Date().toISOString(), postImages: filenameArray });
+   
+    try {
         await newPost.save();
 
         res.status(201).json({ message:"Post created", newPost});     
     } catch (error) {
         res.status(409).json({ message: error.message });        
-    }  */
+    }  
 }
 
 export const deletePost = async(req, res) => {
