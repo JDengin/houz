@@ -13,8 +13,7 @@ const createPost = async (posts, token) => {
             Authorization: `Bearer ${token}`,
         },
     }    
-    console.log(...posts)
-
+    
     try {
         const response = await axios.post('http://localhost:8080/posts/uploadPost', posts);
 

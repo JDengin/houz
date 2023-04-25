@@ -13,7 +13,7 @@ const initialState = {
     //to perform actions as him
 
     export const createPost = createAsyncThunk('posts/createPost', async(posts, thunkAPI) => {
-        console.log(...posts)
+        
         try {
             const  token = thunkAPI.getState().auth.user.token
             return await postService.createPost(posts, token)

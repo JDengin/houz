@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
 import sample_home from "../assets/sample_home.jpg";
 
 // Import Swiper React components
@@ -17,7 +16,7 @@ import { Pagination, Navigation } from "swiper";
 
 const HomeCard = ({ post }) => {
 
-  const postImgs = [
+  /* const postImgs = [
     <SwiperSlide><img src={sample_home} className="object-contain rounded-2xl"/></SwiperSlide>,
     <SwiperSlide><img src={sample_home} className="object-contain rounded-2xl"/></SwiperSlide>,
     <SwiperSlide><img src={sample_home} className="object-contain rounded-2xl"/></SwiperSlide>,
@@ -27,7 +26,7 @@ const HomeCard = ({ post }) => {
     <SwiperSlide><img src={sample_home} className="object-contain rounded-2xl"/></SwiperSlide>,
     <SwiperSlide><img src={sample_home} className="object-contain rounded-2xl"/></SwiperSlide>,
     <SwiperSlide><img src={sample_home} className="object-contain rounded-2xl"/></SwiperSlide>
-  ]  
+  ]  */ 
 
   return (
         
@@ -41,11 +40,17 @@ const HomeCard = ({ post }) => {
              modules={[Pagination, Navigation]}
              className="mySwiper"
            >
-             {(postImgs).map(() => (
-               <SwiperSlide><img src={sample_home} className="object-contain rounded-2xl"/></SwiperSlide>
-               //replace 'sample_home' by 'imgUrl' when I'll find a way to send Imgs inside my db
-             ))}
-             
+             {
+                (post?.postImages?.length > 0) ? ( 
+                  (post?.postImages).map((postImg) => (                    
+                      <SwiperSlide><img src={`/uploads/${postImg}`} className="object-contain rounded-2xl"/></SwiperSlide>
+                      // the complete root of img above is ../../public/uploads/${postImg}, this because files in the public directory are served at the root path.
+                    ))
+                ) : (
+                  <SwiperSlide><img src={sample_home} className="object-contain rounded-2xl"/></SwiperSlide>
+                )
+
+              }
          </Swiper>
 
          <p className="px-4">{`Fcfa ${post?.price}/mois | ${post?.homeType} `}</p> 

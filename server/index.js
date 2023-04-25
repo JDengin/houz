@@ -17,12 +17,6 @@ app.use(cors());
 app.use(express.json({ limit: '50mb'}));
 app.use(express.urlencoded({ extended: true }));//The .urlencoded indicates that we are parsing URL-encoded data for the front end of our application.
 
-/* app.use(
-  fileupload({
-    createParentPath: true, //The createParentPath is used to create directory paths for our uploaded files.
-  })
-); */
-
 app.use('/posts', postRoutes);
 app.use('/user', userRoutes);
 
@@ -36,35 +30,21 @@ app.get('/', async (req, res) => {
 
 const storage = multer.diskStorage({
   destination: function ( req, file, cb) {
-    cb(null, './uploads') //cb(null, __dirname + '/uploads')    //'./uploads'
+    //cb(null, './uploads') //cb(null, __dirname + '/uploads')    //'./uploads'
+    cb(null, '../client/public/uploads') //I send uploaded images into uploads_folder located inside public_folder because you can display them in front-end when they are inside public folder
   },
   filename: function (req, file, cb) {
     const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E19)
+    const extension = file.originalname.split(".").pop()
     //cb(null, file.fieldname + '-' + uniqueSuffix)
-    cb(null, 'Img' + '-' + uniqueSuffix)
+    cb(null, 'Img' + '-' + uniqueSuffix + '.' + extension)
   }
   
 }) 
 
 const upload = multer({ storage: storage });
 
-//app.use(upload.array());
-//app.use(express.static('public'));
-
 app.post('/posts/uploadPost', upload.array('postImages'), createPost);
-
-/* app.post('/posts/uploadPost', upload.array('postImages'), (req, res) => { 
-  const allFiles = req.files
-  const allBody = req.body
-
-  try {
-    res.send({message: "files uploaded", allFiles, allBody});
-    console.log(req.files)
-    console.log(req.body)
-  } catch (error) {
-    res.send(400);
-  }
-});   */
 
 //Find a way to limit the number of allowed images to upload at 10
 

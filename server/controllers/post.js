@@ -113,7 +113,7 @@ export const createPost = async(req, res) => {
         res.status(201).json({ message:"Post created", newPost});     
     } catch (error) {
         res.status(409).json({ message: error.message });        
-    }  
+    }   
 }
 
 export const deletePost = async(req, res) => {

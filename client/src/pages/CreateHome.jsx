@@ -94,8 +94,7 @@ const CreateHome = () => {
     //formData.append('postImagesArray', JSON.stringify(postImagesArray))
 
     //console.log(postImagesArray)
-    console.log(pictures)
-    console.log(...formData)
+    
 
    dispatch(createPost(formData));
 
