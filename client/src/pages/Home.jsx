@@ -67,7 +67,7 @@ const Home = () => {
         {isLoading ? (
             <Spinner/>
           ) : ( posts.length > 0 ? (
-                  <div className='flex flex-wrap items-center justify-center gap-1'>
+                  <div className='flex flex-wrap items-center justify-center gap-5'>
                     {posts.map((post) => (
                       <HomeCard key={post._id} post={post} />
                     ))}

@@ -1,9 +1,8 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import sample_home from "../assets/sample_home.jpg";
 import { BsThreeDotsVertical } from "react-icons/bs"
 import { MdDeleteOutline } from "react-icons/md"
+import no_image from "../assets/no_image.jpg";
 import { UpdatePostModal, DeletePostModal } from "../components"
 
 // Import Swiper React components
@@ -18,76 +17,73 @@ import "../App.css";
 
 // import required modules
 import { Pagination, Navigation } from "swiper";
-//import { getSelectedPost } from "../features/post/postSlice";
 
 const HomeCardForMyHomes = ({ post }) => {
 
   const [showUpdateModal, setShowUpdateModal] = useState(false)
   const [showDeleteModal, setShowDeleteModal] = useState(false)
 
-  const handleCloseUpdateModal = () => {
-    setShowUpdateModal(false);
-  }
+  const handleCloseUpdateModal = () => { setShowUpdateModal(false); }
 
-  const handleCloseDeleteModal = () => {
-    setShowDeleteModal(false);
-  }
+  const handleCloseDeleteModal = () => { setShowDeleteModal(false); }
 
-  const postImgs = [
-    <SwiperSlide><img src={sample_home} className="object-contain rounded-2xl"/></SwiperSlide>,
-    <SwiperSlide><img src={sample_home} className="object-contain rounded-2xl"/></SwiperSlide>,
-    <SwiperSlide><img src={sample_home} className="object-contain rounded-2xl"/></SwiperSlide>,
-    <SwiperSlide><img src={sample_home} className="object-contain rounded-2xl"/></SwiperSlide>,
-    <SwiperSlide><img src={sample_home} className="object-contain rounded-2xl"/></SwiperSlide>,
-    <SwiperSlide><img src={sample_home} className="object-contain rounded-2xl"/></SwiperSlide>,
-    <SwiperSlide><img src={sample_home} className="object-contain rounded-2xl"/></SwiperSlide>,
-    <SwiperSlide><img src={sample_home} className="object-contain rounded-2xl"/></SwiperSlide>,
-    <SwiperSlide><img src={sample_home} className="object-contain rounded-2xl"/></SwiperSlide>
-  ]
+  const handleUpdate = () => { setShowUpdateModal(true) }
 
-  const handleUpdate = () => {
-    
-      setShowUpdateModal(true)
-  }
-
-  const handleDelete = () => {
-      
-      setShowDeleteModal(true)
-  }  
+  const handleDelete = () => { setShowDeleteModal(true) }  
 
   return (
-   /*  <button onClick={handleClick} className="m-4 bg-white rounded-lg w-[300px]"> */
-        <div className="relative">
-          <button onClick={handleUpdate} className="absolute right-8 top-2 z-10 hover:opacity-50"><BsThreeDotsVertical className="text-white text-2xl"/></button>    
-          <button onClick={handleDelete} className="absolute left-8 top-2 z-10 hover:opacity-50"><MdDeleteOutline className="text-white text-2xl"/></button>  
+        <div className="flex flex-col">
 
-         <Link to={`/homedetails/${post?._id}`} className="bg-white hover:no-underline relative" > 
-         
-            <Swiper
-                pagination={{
-                  clickable: true,
-                }}
-               navigation={true}
-                modules={[Pagination, Navigation]}
-                className="mySwiper"
-              >
-                {(postImgs).map(() => (
-                  <SwiperSlide><img src={sample_home} className="object-contain rounded-2xl"/></SwiperSlide>
-                  //replace 'sample_home' by 'imgUrl' when I'll find a way to send Imgs inside my db
-                ))}
-                  
-            </Swiper>
+            {/* <button onClick={handleUpdate} className="absolute right-8 top-2 z-10 hover:opacity-50"><BsThreeDotsVertical className="text-white text-2xl"/></button>    
+            <button onClick={handleDelete} className="absolute left-8 top-2 z-10 hover:opacity-50"><MdDeleteOutline className="text-white text-2xl"/></button>   */}
+          
+            <Link to={`/homedetails/${post?._id}`} className=" hover:no-underline flex flex-col"> 
 
-            <p className="px-4">{`Fcfa ${post?.price}/mois | ${post?.homeType} `}</p> 
-            <p className="px-4">{` ${post?.monthsNumber} mois d'avance | Caution ${post?.rentDeposit} Fcfa`}</p>
-            <p className="px-4">{` ${post?.town} | ${post?.quarter} `} </p>
-            <p className="px-4 text-gray-500 no-underline">Click for more information ...</p>
+              <div>
+                <Swiper
+                  pagination={{
+                    clickable: true,
+                  }}
+                navigation={true}
+                  modules={[Pagination, Navigation]}
+                  className="mySwiper w-30"
+                >
+                  {
+                    (post?.postImages?.length > 0) ? ( 
+                      (post?.postImages).map((postImg) => (                    
+                          <SwiperSlide className="border-2 rounded-t-2xl"><img src={`/uploads/${postImg}`} className="object-contain rounded-t-2xl"/></SwiperSlide>
+                          // the complete root of img above is ../../public/uploads/${postImg}, this because files in the public directory are served at the root path.
+                        ))
+                    ) : (                      
+                      <SwiperSlide className="border-2 rounded-t-2xl"><img src={no_image} className="object-contain rounded-t-2xl"/></SwiperSlide>
+                    )
+                  }
                     
-         </Link>
+                </Swiper>
+                
+              </div>                                            
+                    
+            </Link>
 
-           <UpdatePostModal post={post} handleCloseUpdateModal={handleCloseUpdateModal} showUpdateModal={showUpdateModal} />
+            <div className="flex justify-around w-[300px] bg-gray-200 h-10 py-1">
+                <button onClick={handleUpdate} className="bg-[#1B4571] text-white w-[100px] rounded-sm hover:opacity-50">Update</button>
+                <button onClick={handleDelete} className="bg-red-400 text-white w-[100px] rounded-sm hover:opacity-50">Delete</button>
+            </div>            
+
+            <Link to={`/homedetails/${post?._id}`} className=" hover:no-underline flex flex-col">    
+
+              <div className=" w-[300px]">
+                  <p className="">{`Fcfa ${post?.price}/mois | ${post?.homeType} `}</p> 
+                  <p className="">{` ${post?.monthsNumber} mois d'avance | Caution ${post?.rentDeposit} Fcfa`}</p>
+                  <p className="">{` ${post?.town} | ${post?.quarter} `} </p>
+                  <p className=" text-gray-500 no-underline">Click for more information ...</p>
+              </div>
+
+            </Link>
+
+            <UpdatePostModal post={post} handleCloseUpdateModal={handleCloseUpdateModal} showUpdateModal={showUpdateModal} />
        
-           <DeletePostModal postId={post?._id} handleCloseDeleteModal={handleCloseDeleteModal} showDeleteModal={showDeleteModal} /> 
+            <DeletePostModal postId={post?._id} handleCloseDeleteModal={handleCloseDeleteModal} showDeleteModal={showDeleteModal} /> 
 
         </div>     
   )

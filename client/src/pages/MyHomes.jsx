@@ -47,12 +47,12 @@ const MyHomes = () => {
   return (
     <>
       <Navbar/>
-      <section className="mx-[3vw] w-[94vw] min-h-screen flex flex-wrap justify-center">
+      <section className="mx-[3vw] w-[94vw] min-h-screen">
           
               {isLoading ? (          
                 <Spinner/>
                 ) : (posts?.length > 0 ? (
-                        <div className='my-[15vh] flex flex-wrap items-center justify-center'>
+                        <div className='my-[25vh] flex flex-wrap items-center justify-center gap-5'>
                           {(posts).map((post) => (
                             <HomeCardForMyHomes key={post._id} post={post} />
                           ))}

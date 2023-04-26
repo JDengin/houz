@@ -6,6 +6,7 @@ import { getAllPosts, getSelectedPost } from '../features/post/postSlice';
 import sample_home from "../assets/sample_home.jpg"
 import Spinner from "../components/Spinner";
 import { toast } from 'react-toastify';
+import no_image from "../assets/no_image.jpg";
  
 const HomeDetails = () => {
 
@@ -15,9 +16,13 @@ const HomeDetails = () => {
   
   const {posts, isLoading, isSuccess, isError, message} = useSelector((state) => state.posts)
 
-  //console.log(Object.keys(posts).length)
-
   const postsLength = Object.keys(posts).length
+
+  const postImgs = posts?.postImages
+
+  //console.log(posts?.postImg?.length === undefined)
+
+  console.log(postImgs?.length)
 
   useEffect(() => {
 
@@ -28,15 +33,7 @@ const HomeDetails = () => {
     dispatch(getSelectedPost(id)) 
         
   }, [id])
-  
-  //In some cases "posts" is an Array and in some others cases an object so i need to use if...else
-  /* if(Array.isArray(posts)) {
-     post = posts.find((p) => p._id === id);
-  } else {
-     const destructuredPosts = posts.posts;
-     post = destructuredPosts.find((p) => p._id === id); //We destructure this post because " find() " method is only for array
-  } */ 
-  
+    
   return (
     <>
       <Navbar/>
@@ -60,20 +57,54 @@ const HomeDetails = () => {
 
                     <div className="mt-[2vh] mb-[4vh] w-full h-fit flex flex-col lg:grid grid-row-2 grid-flow-col gap-3  lg:gap-1">  
                         
-                        <div className="rounded-2xl lg:rounded-none row-span-2 col-span-2">
-                          <img src={sample_home} className="rounded-2xl lg:rounded-none h-full"/>
+                        <div className="rounded-2xl lg:border-2 lg:rounded-none row-span-2 col-span-2">
+                          { //That means If img exist for this post display it, else display no image
+                            (postImgs?.length > 0 && postImgs[0] !== undefined) ? (
+                                        <img src={`/uploads/${postImgs[0]}`} className="rounded-2xl lg:rounded-none h-full"/>
+                                    ) : (
+                                      <img src={no_image} className="border-2 rounded-2xl lg:rounded-none h-full"/>
+                                    )
+                          }                          
                         </div>
-                        <div className="rounded-2xl lg:rounded-none">
-                            <img src={sample_home} className="h-full rounded-2xl lg:rounded-none"/>
+
+                        <div className="lg:border-2">
+                          { //That means If img with index 1 exist display it, else display "no_image" but only for "lg" screen, for screen with size less than "lg", display nothing.
+                           //The same logic for div below this one
+                            (postImgs?.length > 1 && postImgs[1] !== undefined) ? (
+                                        <img src={`/uploads/${postImgs[1]}`} className="rounded-2xl border-2 lg:rounded-none h-full"/>
+                                    ) : (
+                                      <img src={no_image} className="border-2 rounded-2xl hidden lg:block lg:rounded-none h-full"/>
+                                    )
+                          }                                                      
                         </div>
-                        <div className="rounded-2xl lg:rounded-none">
-                            <img src={sample_home} className="h-full rounded-2xl lg:rounded-none"/>
+
+                        <div className="lg:border-2">
+                          { //That means If img exist for this post display it, else display no image
+                            (postImgs?.length > 2 && postImgs[2] !== undefined) ? (
+                                        <img src={`/uploads/${postImgs[2]}`} className="border-2 rounded-2xl lg:rounded-none h-full"/>
+                                    ) : (
+                                      <img src={no_image} className="border-2 rounded-2xl hidden lg:block lg:rounded-none h-full"/>
+                                    )
+                          }
                         </div>
-                        <div className="rounded-2xl lg:rounded-none">
-                            <img src={sample_home} className="h-full rounded-2xl lg:rounded-none"/>
+
+                        <div className="lg:border-2">
+                            { //That means If img exist for this post display it, else display no image
+                              (postImgs?.length > 3 && postImgs[3] !== undefined) ? (
+                                        <img src={`/uploads/${postImgs[3]}`} className="border-2 rounded-2xl lg:rounded-none h-full"/>
+                                    ) : (
+                                      <img src={no_image} className="border-2 rounded-2xl hidden lg:block lg:rounded-none h-full"/>
+                                    )
+                            }
                         </div>
-                        <div className="rounded-2xl lg:rounded-none">
-                            <img src={sample_home} className="h-full rounded-2xl lg:rounded-none"/>
+                        <div className="lg:border-2">
+                            { //That means If img exist for this post display it, else display no image
+                              (postImgs?.length > 4 && postImgs[4] !== undefined) ? (
+                                        <img src={`/uploads/${postImgs[4]}`} className="border-2 rounded-2xl lg:rounded-none h-full"/>
+                                    ) : (
+                                      <img src={no_image} className="border-2 rounded-2xl hidden lg:block lg:rounded-none h-full"/>
+                                    )
+                            }
                         </div>
                         
                     </div>
