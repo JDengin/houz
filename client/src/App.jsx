@@ -4,6 +4,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Home, HomeDetails, CreateHome, MyHomes, Auth, HomeType} from './pages';
 import HomeSearched from "./pages/HomeSearched";
+import { Navbar } from "./components";
 
 const App = () => {
   return (

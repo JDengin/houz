@@ -14,8 +14,10 @@ const CreateHome = () => {
   
   const [postInputs, setPostInputs] = useState({});
   const [urlImages, setUrlImages] = useState([]); //State for URL of images
-  const [loading, setLoading] = useState(false);
+  //const [loading, setLoading] = useState(false);
   const [pictures, setPictures] = useState([]);//State for images
+
+  const MAXIMUM_FILES_NUMBER_ALLOWED = 5;
 
   const userId = user._id
 
@@ -24,8 +26,8 @@ const CreateHome = () => {
       toast.error(message);
     }
 
-    dispatch(reset());
-    
+    dispatch(reset());   
+
   }, [user, isError, isSuccess, message, navigate, dispatch])
 
   const handleChange = (e) => {
@@ -37,25 +39,31 @@ const CreateHome = () => {
 //Functions to preview multiple images 
 
   const handleImg = (e) => {
-    
+   
     if(e.target.files) {
       //I create an array of images files called "pictures"
       setPictures([...e.target.files]);
 
       const imagePreviewArray = Array.from(e.target.files).map((file) => URL.createObjectURL(file));
       setUrlImages((prevImage) => prevImage.concat(imagePreviewArray));
+    } 
 
-    }
-
-    /* const postImageArray = Array.from(e.target.files).map((i) => pictures[i].name) 
-    PostImagesArray = ((prevImage) => prevImage.concat(postImageArray));
-    } */ 
+    console.log(e.target.files.length)
+    console.log(urlImages)
+    console.log(pictures)
+    
   };
 
-  const render = (data) => {
-    return data.map((image) => {
-      return <img className='w-[100px] h-[100px]' src={image} alt="" key={image} />;
-    });
+  const render = (data_urlImg, data_pictures) => {
+   
+    if(data_pictures?.length > MAXIMUM_FILES_NUMBER_ALLOWED) {       
+            
+      return <p className='text-red-500'>The maximum allowed number of files to upload is 5</p>
+    } else {
+        return data_urlImg.map((image) => {
+              return <img className='w-[100px] h-[100px]' src={image} alt="post_image" key={image}/>
+        });
+    }
   };
 
   const handleSubmit = async(e) => {
@@ -63,11 +71,7 @@ const CreateHome = () => {
 
     let j = 0; // j here is postInputs key
 
-    //setLoading(true);
     let formData = new FormData();
-    //const postData = new FormData();
-
-    //urlImages
 
     for (const key of Object.keys(pictures)) {
       formData.append("postImages", pictures[key]);  //`postImages[${key}]`
@@ -81,43 +85,21 @@ const CreateHome = () => {
       formData.append(`${j}`, posts[j]);     
     }      
     
-    //let postImagesArray = []
-    
-    /* for (let i = 0; i < pictures.length; i++) {
-      postImagesArray[i] = pictures[i].name
-    } */
-
-   /*  for (let i = 0; i < pictures.length; i++) {
-      postImagesArray[i] = pictures[i]
-    } */
-
-    //formData.append('postImagesArray', JSON.stringify(postImagesArray))
-
-    //console.log(postImagesArray)
-    
-
-   dispatch(createPost(formData));
-
-   /*  console.log(...formData)
-    console.log(postInputs)
-    console.log(pictures[1].name)
-    console.log(urlImages) */
-
-    
-
-    //const posts = {...postInputs, postCreator: userId} //add postCreator field to posts
-
-    //console.log(posts)
-
-    //dispatch(createPost(posts));
-  
-    navigate('/');           
+   dispatch(createPost(formData));  
+   navigate('/'); 
   }; 
+
+  //This function allows me to delete all chosen files I want to upload inside the database
+  const deleteAllFiles = (e) => {
+    e.preventDefault();
+    setPictures([]);
+    setUrlImages([]);
+  }
 
   return (
     <>
       <Navbar/>
-      <section className="mt-[15vh] flex justify-center items-center">
+      <section className="mt-[10vh] flex justify-center items-center">
 
           <div className="drop-shadow-lg my-10 bg-slate-300 w-[80vw] lg:w-[40vw]  min-h-[70vh]">
               
@@ -184,24 +166,27 @@ const CreateHome = () => {
                         </label> 
                     </div>   
                     
-                    <input type="file" name="postImages" multiple onChange={handleImg} /> 
+                    <div className='mx-[2vw] flex justify-center gap-10'>
+                        <input type="file" name="postImages" multiple onChange={handleImg} /> 
 
-                    {render(urlImages)}
+                        {(urlImages?.length > 0 && urlImages?.length < 5) && <button onClick={deleteAllFiles} className='bg-red-500 text-white w-40 flex justify-center'>Delete All Images</button>}
 
-                    <div className="flex justify-center my-[1vh] ">
+                    </div>
+
+                    <div className='mt-5 flex flex-wrap justify-center w-full lg:w-[40vw]  gap-10'>
+                      {render(urlImages, pictures)}
+                    </div>
+
+                    <div className="my-[1vh] flex justify-center ">
                         <button type="submit" className='flex justify-center items-center bg-[#1B4571] w-full lg:w-[36vw] h-[40px] mx-3 my-2 text-white hover:bg-sky-500'>
                           Submit
                         </button> 
-                    </div>  
-
-                    
+                    </div>                      
 
                 </div>
 
               </form>
-
-              {/* The render function with the multiple image state */}
-              
+              {/* The render function with the multiple image state */}              
                  
           </div>
       

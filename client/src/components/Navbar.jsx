@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { FaBars, FaTimes } from "react-icons/fa"
-import { BiUserCircle } from "react-icons/bi"
 import houz_logo from '../assets/houz_logo.png';
 import { logout, reset } from '../features/auth/authSlice';
 
@@ -12,9 +11,6 @@ const Navbar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);   
-
-  //const search = useLocation().search
-  //const page = new URLSearchParams(search).get('page') || 1; //type here is a query string in the url
 
   const Logout = () => {
       dispatch(logout());
@@ -40,16 +36,16 @@ const Navbar = () => {
 
           <nav  className="flex flex-col lg:flex-row text-3xl lg:text-lg leading-10 lg:leading-normal">
                             
-            <Link to={`/home_type?type=studio&page=1`} onClick={() => setNavbarOpen(!navbarOpen)} className="px-[15px] hover:text-sky-400 hover:no-underline">
+            <Link to={`/home_type?type=studio&page=1`} onClick={() => setNavbarOpen(!navbarOpen)} className="text-xl lg:text-base px-[15px] hover:text-sky-400 hover:no-underline">
               Studio
             </Link>
-            <Link to={`/home_type?type=chambre&page=1`} onClick={() => setNavbarOpen(!navbarOpen)} className="px-[15px] hover:text-sky-400 hover:no-underline" >
+            <Link to={`/home_type?type=chambre&page=1`} onClick={() => setNavbarOpen(!navbarOpen)} className="text-xl lg:text-base px-[15px] hover:text-sky-400 hover:no-underline" >
               Chambre
             </Link>
-            <Link to={`/home_type?type=appartement&page=1`} onClick={() => setNavbarOpen(!navbarOpen)} className="px-[15px] hover:text-sky-400 hover:no-underline">
+            <Link to={`/home_type?type=appartement&page=1`} onClick={() => setNavbarOpen(!navbarOpen)} className="text-xl lg:text-base px-[15px] hover:text-sky-400 hover:no-underline">
               Appartement
             </Link>
-            <Link to={`/home_type?type=espace commercial&page=1`} onClick={() => setNavbarOpen(!navbarOpen)} className="px-[15px] hover:text-sky-400 hover:no-underline">
+            <Link to={`/home_type?type=espace commercial&page=1`} onClick={() => setNavbarOpen(!navbarOpen)} className="text-xl lg:text-base px-[15px] hover:text-sky-400 hover:no-underline">
               Espace commercial
             </Link>
           </nav>
@@ -61,18 +57,18 @@ const Navbar = () => {
           <div className="flex flex-col lg:flex-row mx-3 text-3xl lg:text-lg leading-10 lg:leading-normal"> 
             {user ? ( 
               <div className="flex lg:flex-row flex-col ">
-                  <Link to="/create_home" onClick={() => setNavbarOpen(!navbarOpen)} className="hover:no-underline hover:text-sky-400">
+                  <Link to="/create_home" onClick={() => setNavbarOpen(!navbarOpen)} className="text-xl lg:text-base hover:no-underline hover:text-sky-400">
                       Create an Home
                   </Link>  
-                  <Link to={`/my_homes?userid=${user?._id}&page=1`} onClick={() => setNavbarOpen(!navbarOpen)} className="hover:no-underline lg:ml-7 hover:text-sky-400">
+                  <Link to={`/my_homes?userid=${user?._id}&page=1`} onClick={() => setNavbarOpen(!navbarOpen)} className="text-xl lg:text-base hover:no-underline lg:ml-7 hover:text-sky-400">
                       My Homes
                   </Link>
-                  <button className="flex justify-start lg:ml-7 hover:text-sky-400" onClick={Logout}>
+                  <button className="text-xl lg:text-base flex justify-start lg:ml-7 hover:text-sky-400" onClick={Logout}>
                       Logout
                   </button>
               </div>
             ) : (
-              <Link to="/auth" onClick={() => setNavbarOpen(!navbarOpen)} className="hover:no-underline hover:text-sky-400">
+              <Link to="/auth" onClick={() => setNavbarOpen(!navbarOpen)} className="text-xl lg:text-base hover:no-underline hover:text-sky-400">
                 Connexion
               </Link>
             )}

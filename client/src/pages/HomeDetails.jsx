@@ -1,9 +1,8 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useParams } from "react-router-dom"
 import { useSelector, useDispatch } from "react-redux";
 import { Navbar, Footer } from "../components"
-import { getAllPosts, getSelectedPost } from '../features/post/postSlice';
-import sample_home from "../assets/sample_home.jpg"
+import { getSelectedPost } from '../features/post/postSlice';
 import Spinner from "../components/Spinner";
 import { toast } from 'react-toastify';
 import no_image from "../assets/no_image.jpg";
@@ -19,10 +18,6 @@ const HomeDetails = () => {
   const postsLength = Object.keys(posts).length
 
   const postImgs = posts?.postImages
-
-  //console.log(posts?.postImg?.length === undefined)
-
-  console.log(postImgs?.length)
 
   useEffect(() => {
 
@@ -55,7 +50,7 @@ const HomeDetails = () => {
                       <p className="text-blue-800 font-semibold">{`Caution : ${posts?.rentDeposit} Fcfa`}</p>
                     </div>
 
-                    <div className="mt-[2vh] mb-[4vh] w-full h-fit flex flex-col lg:grid grid-row-2 grid-flow-col gap-3  lg:gap-1">  
+                    <div className="mt-[2vh] mb-[4vh] w-full h-fit flex flex-col lg:grid grid-row-2 grid-flow-col gap-3  lg:gap-1">  {/* h-fit */}
                         
                         <div className="rounded-2xl lg:border-2 lg:rounded-none row-span-2 col-span-2">
                           { //That means If img exist for this post display it, else display no image

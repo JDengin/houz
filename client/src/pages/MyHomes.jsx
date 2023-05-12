@@ -10,17 +10,6 @@ const MyHomes = () => {
 
   const dispatch = useDispatch();
   
-  /*const [showUpdateModal, setShowUpdateModal] = useState(false);
-  const [showDeleteModal, setShowDeleteModal] = useState(false);
-
-  const handleCloseUpdateModal = () => {
-    setShowUpdateModal(false);
-  }
-
-  const handleCloseDeleteModal = () => {
-    setShowDeleteModal(false);
-  } */
-
   const { posts, numberOfPages, isSuccess, isLoading, isError, message } = useSelector((state) => state.posts)
   const search = useLocation().search
   const userid = new URLSearchParams(search).get('userid'); //searchQuery here is a query string in the url 
@@ -45,34 +34,34 @@ const MyHomes = () => {
      
 
   return (
-    <>
+    <div className='overflow-y-auto'>
       <Navbar/>
-      <section className="mx-[3vw] w-[94vw] min-h-screen">
+      <section className="mx-[3vw] w-[94vw] h-fit">
           
               {isLoading ? (          
                 <Spinner/>
                 ) : (posts?.length > 0 ? (
-                        <div className='my-[25vh] flex flex-wrap items-center justify-center gap-5'>
+                        <div className='mt-[20vh] flex flex-wrap items-center justify-center gap-5'>
                           {(posts).map((post) => (
                             <HomeCardForMyHomes key={post._id} post={post} />
                           ))}
 
                         </div>
-                      ) : ( <p className='my-[15vh]'>You have no home in your home list</p> ) 
+                      ) : ( <p className='mt-[20vh] mb-[60vh] text-red-500'>You have no home in your home list</p> ) 
                     )       
               }     
             
       </section>
 
-      <div className='flex justify-center my-[2vh]'>   
+      <div className='flex justify-center my-[5vh]'>   
       
-         <PaginateMyHomes userid={userid} page={page} numberOfPages={numberOfPages}/>
+        <PaginateMyHomes userid={userid} page={page} numberOfPages={numberOfPages}/>
       
       </div>
 
       <Footer/>
 
-    </>
+    </div>
   )
 }
 

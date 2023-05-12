@@ -52,6 +52,7 @@ const Home = () => {
                   onChange={(e) => setSearchedWord(e.target.value)}
                   placeholder='Enter home type, town, quarter, price...'
                   className='w-[300px] lg:w-[600px] h-14 px-2 my-[40px] border-2 text-sm lg:text-xl rounded-sm outline-none'
+                  required
               />
               <button className='mx-4 px-2 h-14 w-fit bg-[#1B4571] text-[white] cursor-pointer rounded-lg hover:bg-sky-400' type="submit" >
                 Search

@@ -1,5 +1,5 @@
 import bcrypt from 'bcrypt';
-
+import jwt from 'jsonwebtoken';
 import User from '../mongodb/models/userModels.js';
 
 export const signin = async (req, res) => {
@@ -14,8 +14,8 @@ export const signin = async (req, res) => {
           _id: user.id,
           UserName: user.userName,
           email: user.email,
-          message: `Connected to ${user.userName} account`
-          //token: generateToken(user._id),
+          message: `Connected to ${user.userName} account`,
+          token: generateToken(user._id),
         })
       } else {
         res.status(400).json({ message: 'Invalid email or password'})
@@ -66,7 +66,9 @@ export const signup = async (req, res) => {
           _id: user.id,
           name: user.userName,
           email: user.email,
-          message: 'User created in the database' })
+          message: 'User created in the database',
+          token: generateToken(user._id) 
+        })
       } else {
         return res.status(400).json({ message: 'Invalid user data'})
        // throw new Error('Invalid user data')
@@ -76,4 +78,10 @@ export const signup = async (req, res) => {
       res.status(500).json({ message: 'Something went wrong.' })
     } 
       
+}
+
+//Generate JWT
+
+const generateToken = (id) => {
+  return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: '1h'})
 }

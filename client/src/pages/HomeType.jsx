@@ -38,19 +38,19 @@ const HomeType = () => {
     <>
       <Navbar/>
       
-      <section className="mx-[3vw] min-h-screen flex flex-wrap justify-center">
-           
+      {/* <section className="mx-[3vw] min-h-screen flex flex-wrap justify-center"> */}
+      <section className="mx-[3vw] w-[94vw] h-fit">
         {isLoading ? (
               <Spinner/>
             ) : ( posts?.length > 0 ? (
-                    <div className='my-[15vh] flex flex-wrap items-center justify-center'>
+                    <div className='mt-[20vh] mb-[10vh] flex flex-wrap items-center justify-center gap-5'>
                       {posts.map((post) => (
                         <HomeCard key={post._id} post={post} />
                       ))}
                     </div>                   
 
                   ) : (
-                    <p className='my-[15vh]'>We have no such type of home</p>
+                    <p className='mt-[20vh] mb-[60vh] text-red-500 text-2xl flex justify-center'>We have no such type of home</p>
                   ) 
             )            
             
@@ -58,7 +58,7 @@ const HomeType = () => {
          
       </section>
 
-      <div className='flex justify-center my-[2vh]'>   
+      <div className='flex justify-center my-[5vh]'>   
       
           {/* {(posts.length > 8) && <Paginate2 page={page} posts={posts}/>} */}
           <PaginateHomeSearched searchQuery={searchQuery} page={page} numberOfPages={numberOfPages}/>

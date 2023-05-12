@@ -1,7 +1,5 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { BsThreeDotsVertical } from "react-icons/bs"
-import { MdDeleteOutline } from "react-icons/md"
 import no_image from "../assets/no_image.jpg";
 import { UpdatePostModal, DeletePostModal } from "../components"
 
@@ -23,19 +21,28 @@ const HomeCardForMyHomes = ({ post }) => {
   const [showUpdateModal, setShowUpdateModal] = useState(false)
   const [showDeleteModal, setShowDeleteModal] = useState(false)
 
-  const handleCloseUpdateModal = () => { setShowUpdateModal(false); }
+  const handleCloseUpdateModal = () => { 
+    setShowUpdateModal(false); 
+    document.body.style.overflow = 'unset';
+  }
 
-  const handleCloseDeleteModal = () => { setShowDeleteModal(false); }
+  const handleCloseDeleteModal = () => { 
+    setShowDeleteModal(false); 
+    document.body.style.overflow = 'unset';
+  }
 
-  const handleUpdate = () => { setShowUpdateModal(true) }
-
-  const handleDelete = () => { setShowDeleteModal(true) }  
+  const handleUpdate = () => { 
+    setShowUpdateModal(true) 
+    document.body.style.overflow = 'hidden' //this line remove vertical scrollbar (horizontal too)
+  }
+  
+  const handleDelete = () => { 
+    setShowDeleteModal(true) 
+    document.body.style.overflow = 'hidden' //this line remove vertical scrollbar (horizontal too)
+  }  
 
   return (
         <div className="flex flex-col">
-
-            {/* <button onClick={handleUpdate} className="absolute right-8 top-2 z-10 hover:opacity-50"><BsThreeDotsVertical className="text-white text-2xl"/></button>    
-            <button onClick={handleDelete} className="absolute left-8 top-2 z-10 hover:opacity-50"><MdDeleteOutline className="text-white text-2xl"/></button>   */}
           
             <Link to={`/homedetails/${post?._id}`} className=" hover:no-underline flex flex-col"> 
 
@@ -51,7 +58,7 @@ const HomeCardForMyHomes = ({ post }) => {
                   {
                     (post?.postImages?.length > 0) ? ( 
                       (post?.postImages).map((postImg) => (                    
-                          <SwiperSlide className="border-2 rounded-t-2xl"><img src={`/uploads/${postImg}`} className="object-contain rounded-t-2xl"/></SwiperSlide>
+                          <SwiperSlide key={postImg} className="border-2 rounded-t-2xl"><img src={`/uploads/${postImg}`} className="object-contain rounded-t-2xl"/></SwiperSlide>
                           // the complete root of img above is ../../public/uploads/${postImg}, this because files in the public directory are served at the root path.
                         ))
                     ) : (                      
