@@ -9,7 +9,6 @@ import userRoutes from './routes/userRoutes.js';
 
 import { createPost } from './controllers/post.js';
 
-
 dotenv.config();
 
 const app = express();
