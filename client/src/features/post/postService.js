@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const API_URL = 'https://houz-dhqm.onrender.com/posts/';
+const API_URL = 'https://houz-koe3.onrender.com';
 
 //Create post
 
@@ -15,7 +15,7 @@ const createPost = async (posts, token) => {
     }    
     
     try {
-        const response = await axios.post('https://houz-dhqm.onrender.com/posts/uploadPost', posts);
+        const response = await axios.post(API_URL + '/uploadPost', posts);
 
         return response.data;     
         
@@ -27,14 +27,14 @@ const createPost = async (posts, token) => {
 }
 
 const deletePost = async (postId) => {
-    const response = await axios.delete(`https://houz-dhqm.onrender.com/posts/deletePost/${postId}`)
+    const response = await axios.delete(API_URL + `/deletePost/${postId}`)
    
     return response.data
 }
 
 const updatePost = async (postId, postInputs) => {
 
-    const response = await axios.patch(`https://houz-dhqm.onrender.com/posts/updatePost/${postId}`, postInputs)
+    const response = await axios.patch(API_URL + `/updatePost/${postId}`, postInputs)
 
     return response.data
 }
@@ -46,28 +46,28 @@ const getAllPosts = async (page) => {
         },
     } */
     //const response = await axios.get(API_URL, config)
-    const response = await axios.get(`https://houz-dhqm.onrender.com/posts?page=${page}`)
+    const response = await axios.get(API_URL + `?page=${page}`)
 
     return response.data
 }
 
 const getPostBySearch = async (searchQuery, page) => {
     
-    const response = await axios.get(`https://houz-dhqm.onrender.com/posts/home_searched?searchQuery=${searchQuery}&page=${page}`)
+    const response = await axios.get(API_URL + `/home_searched?searchQuery=${searchQuery}&page=${page}`)
 
     return response.data    
 }
 
 const getSelectedPost = async (id) => {
     
-    const response = await axios.get(`https://houz-dhqm.onrender.com/posts/homedetails/${id}`)
+    const response = await axios.get(API_URL + `/homedetails/${id}`)
 
     return response.data    
 } 
     
 const getMyHomes = async (userid, page) => {
     
-    const response = await axios.get(`https://houz-dhqm.onrender.com/posts/my_homes?userid=${userid}&page=${page}`)
+    const response = await axios.get(API_URL + `/my_homes?userid=${userid}&page=${page}`)
 
     return response.data    
 }
