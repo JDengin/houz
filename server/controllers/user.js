@@ -1,5 +1,5 @@
 import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
+//import jwt from 'jsonwebtoken';
 import User from '../mongodb/models/userModels.js';
 
 export const signin = async (req, res) => {
@@ -15,7 +15,7 @@ export const signin = async (req, res) => {
           UserName: user.userName,
           email: user.email,
           message: `Connected to ${user.userName} account`,
-          token: generateToken(user._id),
+          //token: generateToken(user._id),
         })
       } else {
         res.status(400).json({ message: 'Invalid email or password'})
@@ -82,6 +82,6 @@ export const signup = async (req, res) => {
 
 //Generate JWT
 
-const generateToken = (id) => {
+/* const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: '1h'})
-}
+} */

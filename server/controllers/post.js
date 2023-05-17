@@ -9,6 +9,10 @@ dotenv.config();
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
     api_key: process.env.CLOUDINARY_API_KEY,
     api_secret: process.env.CLOUDINARY_API_SECRET,
+    CLOUDINARY_CLOUD_NAME="deq6tmqlb"
+    CLOUDINARY_API_KEY="419984222124573"
+    CLOUDINARY_API_SECRET="7cja_sliag_C18_Z1i_wX2oKAVE"
+    JWT_SECRET = abc123
 }); */
 
 export const getAllPosts = async (req, res) => {
@@ -64,9 +68,7 @@ export const getPostBySearch = async (req, res) => {
             }         
             
             const totalPostNumber = allPosts.length;
-            //console.log(totalPostNumber)
-            //const posts = await allPosts.sort({ _id: -1 }).limit(LIMIT).skip(startIndex);
-
+        
             res.status(200).json({posts, currentPage: Number(page) || 1, numberOfPages: Math.ceil(totalPostNumber / LIMIT)});
 
     } catch (error) {
@@ -90,7 +92,7 @@ export const getMyHomes = async (req, res) => {
             posts = await Post.find({postCreator : userid}).sort({ _id: -1 }).limit(LIMIT).skip(startIndex);//return the post for one page   
             
             const totalPostNumber = allPosts?.length;
-            //console.log(totalPostNumber)
+      
             //const posts = await allPosts.sort({ _id: -1 }).limit(LIMIT).skip(startIndex);
 
             res.status(200).json({posts, currentPage: Number(page) || 1, numberOfPages: Math.ceil(totalPostNumber / LIMIT)});
