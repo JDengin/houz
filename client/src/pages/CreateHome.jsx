@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { createPost, reset } from '../features/post/postSlice';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import imageCompression from 'browser-image-compression';
 
 const CreateHome = () => {
 
@@ -17,15 +18,15 @@ const CreateHome = () => {
   //const [loading, setLoading] = useState(false);
   const [pictures, setPictures] = useState([]);//State for images
 
-  const MAXIMUM_FILES_NUMBER_ALLOWED = 5;
+  const MAXIMUM_IMAGES_NUMBER_ALLOWED = 5;
 
   const userId = user._id
 
   useEffect(() => {
-    if(isError) {
+    /* if(isError) {
       toast.error(message);
-    }
-
+    } */
+    window.scrollTo({top: 0, left: 0, behavior: 'smooth'}); //force webpage to load at the top
     dispatch(reset());   
 
   }, [user, isError, isSuccess, message, navigate, dispatch])
@@ -36,27 +37,51 @@ const CreateHome = () => {
     setPostInputs(values => ({...values, [name]: value}))
   }
 
+  //Function to compress an array of images
+  
+  /* const compressImg = async(img) => {
+
+    if(img){
+
+      const options = {
+        maxSizeMB: 1,
+        maxWidthOrHeight: 800
+      }    
+      try {
+        const compressedFile = await imageCompression(img, options) //imageCompression is a built-in function of "browser-image-compression" package
+        setPictures(value => ({...value, compressedFile}))
+        console.log(compressedFile)
+        console.log(pictures)
+       
+      } catch (error) {        
+          console.log(error)
+      }  
+      
+    }     
+  } */
 //Functions to preview multiple images 
 
   const handleImg = (e) => {
-   
+       
     if(e.target.files) {
-      //I create an array of images files called "pictures"
-      setPictures([...e.target.files]);
+        //I create an array of images files called "pictures"
+       setPictures([...e.target.files]);        
 
-      const imagePreviewArray = Array.from(e.target.files).map((file) => URL.createObjectURL(file));
-      setUrlImages((prevImage) => prevImage.concat(imagePreviewArray));
+        /* const compressedFiles = Array.from(e.target.files).map((img) => compressImg(img))
+
+        console.log(imageCompression(e.target.files[0], options))
+        console.log(e.target.files)
+        console.log(compressedFiles) */       
+
+        const imagePreviewArray = Array.from(e.target.files).map((file) => URL.createObjectURL(file));
+        setUrlImages((prevImage) => prevImage.concat(imagePreviewArray));
     } 
-
-    console.log(e.target.files.length)
-    console.log(urlImages)
-    console.log(pictures)
-    
-  };
+ }
+  
 
   const render = (data_urlImg, data_pictures) => {
    
-    if(data_pictures?.length > MAXIMUM_FILES_NUMBER_ALLOWED) {       
+    if(data_pictures?.length > MAXIMUM_IMAGES_NUMBER_ALLOWED) {       
             
       return <p className='text-red-500'>The maximum allowed number of files to upload is 5</p>
     } else {

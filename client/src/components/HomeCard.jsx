@@ -30,8 +30,8 @@ const HomeCard = ({ post }) => {
            >
              {
                 (post?.postImages?.length > 0) ? ( 
-                  (post?.postImages).map((postImg) => (                    
-                      <SwiperSlide key={postImg} className="border-2 rounded-t-2xl"><img src={`/uploads/${postImg}`} className="object-contain rounded-t-2xl"/></SwiperSlide>
+                  (post?.postImages).map((postImg, i) => (                    
+                      <SwiperSlide key={i+1} className="border-2 rounded-t-2xl"><img src={`/uploads/${postImg}`} className="object-contain rounded-t-2xl"/></SwiperSlide>
                       // the complete root of img above is ../../public/uploads/${postImg}, this because files in the public directory are served at the root path.
                     ))
                 ) : (

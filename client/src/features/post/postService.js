@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-//const API_URL = `http://localhost:8080/posts`
+//const API_URL = 'http://localhost:8080/posts'
 
 const API_URL = 'https://houz-koe3.onrender.com/posts'; 
 
@@ -8,11 +8,11 @@ const API_URL = 'https://houz-koe3.onrender.com/posts';
 //to perform actions as him
 
 const createPost = async (posts, token) => {
-    const config = {
+    /* const config = {
         headers: {
             Authorization: `Bearer ${token}`,
         },
-    }    
+     } */
     
     try {
         const response = await axios.post(API_URL + '/uploadPost', posts);
@@ -22,7 +22,6 @@ const createPost = async (posts, token) => {
     } catch (error) {
         res.status(500).json(error)
     }
-
     
 }
 

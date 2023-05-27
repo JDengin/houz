@@ -22,10 +22,11 @@ const HomeType = () => {
 
   useEffect(() => {
 
-    if(isError) {
+    /* if(isError) {
       toast.error(message)
-    } 
-    
+    }  */
+    window.scrollTo({top: 0, left: 0, behavior: 'smooth'}); //force webpage to load at the top
+        
     dispatch(getPostBySearch({searchQuery, page})) 
 
     /* return () => {

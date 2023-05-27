@@ -22,9 +22,10 @@ const Home = () => {
 
   useEffect(() => {
 
-    if(isError) {
+    /* if(isError) {
       toast.error(message)
-    } 
+    }  */
+    window.scrollTo({top: 0, left: 0, behavior: 'smooth'}); //force webpage to load at the top
 
     dispatch(getAllPosts(page))
    
@@ -51,10 +52,10 @@ const Home = () => {
                   value={searchedWord}
                   onChange={(e) => setSearchedWord(e.target.value)}
                   placeholder='Enter home type, town, quarter, price...'
-                  className='w-[300px] lg:w-[600px] h-14 px-2 my-[40px] border-2 text-sm lg:text-xl rounded-sm outline-none'
+                  className=' w-[275px] sm:w-[300px] lg:w-[600px] h-14 px-2 my-[40px] border-2 text-sm lg:text-xl rounded-sm outline-none'
                   required
               />
-              <button className='mx-4 px-2 h-14 w-fit bg-[#1B4571] text-[white] cursor-pointer rounded-lg hover:bg-sky-400' type="submit" >
+              <button className='mx-2 px-2 h-14 w-fit bg-[#1B4571] text-[white] cursor-pointer rounded-lg hover:bg-sky-400' type="submit" >
                 Search
               </button>
           </form>
@@ -62,7 +63,7 @@ const Home = () => {
       </div>
       
       <div className="mx-[50px] my-[50px]">
-        <p className='text-2xl mx-16 mb-5'>NEW HOMES </p>
+        <p className='text-2xl mx-20 mb-5 text-[#1B4571] font-semibold'>NEW HOMES </p>
         {/* <p className='mx-16'>Based on your view history</p> */}   
         
         {isLoading ? (

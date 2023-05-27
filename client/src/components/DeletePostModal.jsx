@@ -21,7 +21,7 @@ const DeletePostModal = ({postId, showDeleteModal, handleCloseDeleteModal}) => {
 
       handleCloseDeleteModal()
 
-      dispatch(getMyHomes({userid, FIRST_PAGE })) //Allow me to directly display the homes without the deleted home
+      dispatch(getMyHomes({userid, FIRST_PAGE})) //Allow me to directly display the homes without the deleted home
     }
 
     return (
