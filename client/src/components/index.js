@@ -8,6 +8,7 @@ import UpdatePostModal from './UpdatePostModal';
 import Footer from './Footer';
 import HomeCardForMyHomes from './HomeCardForMyHomes'
 import DeletePostModal from './DeletePostModal';
+import LogoutModal from './LogoutModal';
 
 export {
   HomeCard,
@@ -17,8 +18,9 @@ export {
   PaginateMyHomes,
   Spinner,
   UpdatePostModal,
-  DeletePostModal,
+  DeletePostModal,  
   HomeCardForMyHomes,
-  Footer
+  Footer,
+  LogoutModal
 };
 

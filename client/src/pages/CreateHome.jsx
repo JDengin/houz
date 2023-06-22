@@ -1,15 +1,16 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Navbar, Footer } from "../components";
 import { useDispatch, useSelector } from 'react-redux';
 import { createPost, reset } from '../features/post/postSlice';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import imageCompression from 'browser-image-compression';
 
 const CreateHome = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const fileInputRef = useRef(null);
 
   const {user, isLoading, isError, isSuccess, message} = useSelector((state) => state.auth);
   
@@ -20,7 +21,7 @@ const CreateHome = () => {
 
   const MAXIMUM_IMAGES_NUMBER_ALLOWED = 5;
 
-  const userId = user._id
+  const userId = user?._id
 
   useEffect(() => {
     /* if(isError) {
@@ -34,56 +35,47 @@ const CreateHome = () => {
   const handleChange = (e) => {
     const name = e.target.name;
     const value = e.target.value;
-    setPostInputs(values => ({...values, [name]: value}))
+    setPostInputs(items => ({...items, [name]: value}))
   }
 
-  //Function to compress an array of images
-  
-  /* const compressImg = async(img) => {
-
-    if(img){
-
-      const options = {
-        maxSizeMB: 1,
-        maxWidthOrHeight: 800
-      }    
-      try {
-        const compressedFile = await imageCompression(img, options) //imageCompression is a built-in function of "browser-image-compression" package
-        setPictures(value => ({...value, compressedFile}))
-        console.log(compressedFile)
-        console.log(pictures)
+  const handleImg = async (e) => {   
        
-      } catch (error) {        
-          console.log(error)
-      }  
+    //const files = Array.from(e.target.files);
+    //I create an array of images files called "pictures"
+    //setPictures([...e.target.files]);
+    setPictures(values => [...values, ...e.target.files]) //copy all the files in "pictures" array
+
+    if(e.target.files) {   
       
-    }     
-  } */
-//Functions to preview multiple images 
+      //if(Array.from(e.target.files).length > MAXIMUM_IMAGES_NUMBER_ALLOWED) {
+      if(pictures.length > MAXIMUM_IMAGES_NUMBER_ALLOWED) {
+        console.log('I am here')
+        e.preventDefault();
+        alert(`Cannot upload files more than ${MAXIMUM_IMAGES_NUMBER_ALLOWED} Images`);
+        //e.target.value = null;
+        return;
+      } 
 
-  const handleImg = (e) => {
-       
-    if(e.target.files) {
-        //I create an array of images files called "pictures"
-       setPictures([...e.target.files]);        
-
-        /* const compressedFiles = Array.from(e.target.files).map((img) => compressImg(img))
-
-        console.log(imageCompression(e.target.files[0], options))
-        console.log(e.target.files)
-        console.log(compressedFiles) */       
-
-        const imagePreviewArray = Array.from(e.target.files).map((file) => URL.createObjectURL(file));
-        setUrlImages((prevImage) => prevImage.concat(imagePreviewArray));
+      const imagePreviewArray = Array.from(e.target.files).map((file) => URL.createObjectURL(file));
+      setUrlImages((prevImage) => prevImage.concat(imagePreviewArray));      
     } 
- }
-  
+ }  
 
   const render = (data_urlImg, data_pictures) => {
+
+    console.log(data_urlImg)
+    console.log(data_pictures)
    
-    if(data_pictures?.length > MAXIMUM_IMAGES_NUMBER_ALLOWED) {       
-            
-      return <p className='text-red-500'>The maximum allowed number of files to upload is 5</p>
+    if(data_urlImg?.length > MAXIMUM_IMAGES_NUMBER_ALLOWED ) {   
+      console.log('The maximum allowed number of files to upload is 5')
+      console.log(data_pictures.length)
+      
+
+      alert ("The maximum allowed number of files to upload is 5")
+
+      deleteAllFiles();
+                  
+      return (<p className='text-red-500'>The maximum allowed number of files to upload is 5</p>)
     } else {
         return data_urlImg.map((image) => {
               return <img className='w-[100px] h-[100px]' src={image} alt="post_image" key={image}/>
@@ -110,15 +102,20 @@ const CreateHome = () => {
       formData.append(`${j}`, posts[j]);     
     }      
     
-   dispatch(createPost(formData));  
-   navigate('/'); 
+    dispatch(createPost(formData));  
+    navigate('/'); 
   }; 
 
   //This function allows me to delete all chosen files I want to upload inside the database
-  const deleteAllFiles = (e) => {
-    e.preventDefault();
+  const deleteAllFiles = () => {
     setPictures([]);
     setUrlImages([]);
+    //window.location.reload(false) //This line allows me to reload the code when I click on "Delete all files" button
+
+    //The code below allows me to empty my files input
+    if (fileInputRef.current) {
+      fileInputRef.current.value = null;
+    }
   }
 
   return (
@@ -192,14 +189,16 @@ const CreateHome = () => {
                     </div>   
                     
                     <div className='mx-[2vw] flex justify-center gap-10'>
-                        <input type="file" name="postImages" multiple onChange={handleImg} /> 
+                        <input type="file" ref={fileInputRef} name="postImages" multiple onChange={handleImg} /> 
 
-                        {(urlImages?.length > 0 && urlImages?.length < 5) && <button onClick={deleteAllFiles} className='bg-red-500 text-white w-40 flex justify-center'>Delete All Images</button>}
+                        {(urlImages?.length > 0 && urlImages?.length <= MAXIMUM_IMAGES_NUMBER_ALLOWED) && <button onClick={deleteAllFiles} className='bg-red-500 text-white w-40 flex justify-center'>Delete All selected Images</button>}
 
                     </div>
 
                     <div className='mt-5 flex flex-wrap justify-center w-full lg:w-[40vw]  gap-10'>
+                    
                       {render(urlImages, pictures)}
+                      {(urlImages?.length > MAXIMUM_IMAGES_NUMBER_ALLOWED) && (<p className='text-red-500'>The maximum allowed number of files to upload is 5</p>) }
                     </div>
 
                     <div className="my-[1vh] flex justify-center ">

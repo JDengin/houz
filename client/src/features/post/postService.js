@@ -1,8 +1,8 @@
 import axios from 'axios'
 
-//const API_URL = 'http://localhost:8080/posts'
+const API_URL = 'http://localhost:8080/posts'
 
-const API_URL = 'https://houz-koe3.onrender.com/posts'; 
+//const API_URL = 'https://houz-koe3.onrender.com/posts'; 
 
 //The token is like a password, it allows the user to authentificate to dataverse software apis
 //to perform actions as him

@@ -38,8 +38,11 @@ const MyHomes = () => {
       <Navbar/>
       <section className="mx-[3vw] w-[94vw] h-fit">
           
-              {isLoading ? (          
-                <Spinner/>
+              {isLoading ? (  
+                <div className='mt-[20vh] mb-[35vh]'>
+                  <Spinner/>
+                </div>        
+
                 ) : (posts?.length > 0 ? (
                         <div className='mt-[20vh] flex flex-wrap items-center justify-center gap-5'>
                           {(posts).map((post) => (

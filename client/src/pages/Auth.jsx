@@ -27,13 +27,13 @@ const Auth = () => {
   const {user, isLoading, isError, isSuccess, message} = useSelector((state) => state.auth);
 
   useEffect(() => {
-    /* if(isError) {
+    if(isError) {
       toast.error(message);
-    } */
+    } 
 
     if(isSuccess || user) {
       navigate('/');
-    }   
+    }  
 
     dispatch(reset());
     
@@ -100,24 +100,24 @@ const Auth = () => {
         </header>
 
         <main className="flex justify-center">
-          <div className=" drop-shadow-lg flex-col mt-20 w-[400px] lg:w-[600px] bg-slate-300 border-2 h-fit px-10 py-5">
+          <div className="flex justify-center drop-shadow-lg flex-col mt-20 w-[400px] lg:w-[600px] bg-slate-300 border-2 h-fit px-10 py-5">
             <p className="flex justify-center text-2xl font-semibold mb-3">
               {isSignUp ? 'Sign up' : 'Sign in' }
             </p>
             <form onSubmit={handleSubmit}>
               { isSignUp && (
                 <input type="text" name="userName" value={inputs.userName || ""} onChange={handleChange} placeholder="Enter your username*" required
-                  className='w-[300px] lg:w-[500px] h-[40px] px-4 text-lg my-2'               
+                  className='w-[225px] sm:w-[300px] lg:w-[500px] h-[40px] px-4 text-lg my-2'               
                 />
               )}
               <input type="email" name="email" value={inputs.email || ""} onChange={handleChange} placeholder="Enter your email*" required
-                className='w-[300px] lg:w-[500px] h-[40px] px-4 text-lg  my-2'               
+                className='flex justify-center w-[225px] sm:w-[300px] lg:w-[500px] h-[40px] px-4 text-lg  my-2'               
               />
 
               <input type={passwordType} name="password" value={inputs.password || ""} onChange={handleChange} placeholder="Enter your password*" required
-                className='w-[300px] lg:w-[500px] h-[40px] px-4 text-lg  my-2'               
+                className='w-[225px] sm:w-[300px] lg:w-[500px] h-[40px] px-4 text-lg  my-2'               
               />
-
+              
               <button className='relative right-6' onClick={togglePassword}>
                 {isPassword ? <AiFillEyeInvisible/> : <AiFillEye/> }
               </button>
@@ -126,16 +126,15 @@ const Auth = () => {
               { isSignUp && (
                 <>
                   <input type={confirmPasswordType} name="confirmPassword"value={inputs.confirmPassword || ""} onChange={handleChange} placeholder="Confirm your password*" required
-                    className='w-[300px] lg:w-[500px] h-[40px] px-4 text-lg  my-2'               
-                  />
-                
+                    className='w-[225px] sm:w-[300px] lg:w-[500px] h-[40px] px-4 text-lg  my-2'               
+                  />                
                   <button className='relative right-6' onClick={toggleConfirmPassword}>
                       {isConfirmPassword ? <AiFillEyeInvisible/> : <AiFillEye/>}
                   </button>
                 </>
               )}
 
-              <button type="submit" className='bg-[#1B4571] w-[300px] lg:w-[500px] h-[40px] my-2 text-white hover:bg-sky-500'>
+              <button type="submit" className='bg-[#1B4571] w-[225px] sm:w-[300px] lg:w-[500px] h-[40px] my-2 text-white hover:bg-sky-500'>
                   { isSignUp ? 'Sign up' : 'Sign in' }
               </button>    
 

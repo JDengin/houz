@@ -4,19 +4,32 @@ import { useSelector, useDispatch } from "react-redux";
 import { FaBars, FaTimes } from "react-icons/fa"
 import houz_logo from '../assets/houz_logo.png';
 import { logout, reset } from '../features/auth/authSlice';
+import LogoutModal   from "./LogoutModal"
 
 const Navbar = () => {  
 
   const [navbarOpen, setNavbarOpen] = useState(false)
+  const [showLogoutModal, setShowLogoutModal] = useState(false)
+ 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { user } = useSelector((state) => state.auth);   
+  const { user } = useSelector((state) => state.auth);  
+  
+  const handleCloseLogoutModal = () => {
+    setShowLogoutModal(false);
+    document.body.style.overflow = 'unset';
+  }
 
-  const Logout = () => {
+  const handleLogout = () => {
+    setShowLogoutModal(true)
+    document.body.style.overflow = 'hidden' //this line remove vertical scrollbar (horizontal too)
+  }
+
+  /* const Logout = () => {
       dispatch(logout());
       dispatch(reset());
       navigate('/');
-  }
+  } */
 
   return (
     <header className="fixed z-20 top-0 left-0 right-0  bg-[#1B4571] text-white w-full h-fit lg:h-[13vh] lg:items-center flex flex-col lg:flex-row justify-items-start lg:justify-between lg:px-5">
@@ -63,7 +76,7 @@ const Navbar = () => {
                   <Link to={`/my_homes?userid=${user?._id}&page=1`} onClick={() => setNavbarOpen(!navbarOpen)} className="text-xl lg:text-base hover:no-underline lg:ml-7 hover:text-sky-400">
                       My Homes
                   </Link>
-                  <button className="text-xl lg:text-base flex justify-start lg:ml-7 hover:text-sky-400" onClick={Logout}>
+                  <button className="text-xl lg:text-base flex justify-start lg:ml-7 hover:text-sky-400" onClick={handleLogout}>
                       Logout
                   </button>
               </div>
@@ -73,7 +86,10 @@ const Navbar = () => {
               </Link>
             )}
          </div>
-      </div>                       
+      </div>        
+
+        <LogoutModal handleCloseLogoutModal={handleCloseLogoutModal} showLogoutModal={showLogoutModal} /> 
+               
 
     </header>
   )

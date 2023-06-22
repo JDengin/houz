@@ -78,7 +78,7 @@ const Home = () => {
                   <p className='text-xl mx-16 text-[#1B4571]'>You have no home to display</p>
                 ) 
           )             
-        }
+        } 
         
       </div>
 
