@@ -39,10 +39,7 @@ const CreateHome = () => {
   }
 
   const handleImg = async (e) => {   
-       
-    //const files = Array.from(e.target.files);
-    //I create an array of images files called "pictures"
-    //setPictures([...e.target.files]);
+
     setPictures(values => [...values, ...e.target.files]) //copy all the files in "pictures" array
 
     if(e.target.files) {   
@@ -62,16 +59,12 @@ const CreateHome = () => {
  }  
 
   const render = (data_urlImg, data_pictures) => {
-
-    console.log(data_urlImg)
-    console.log(data_pictures)
    
     if(data_urlImg?.length > MAXIMUM_IMAGES_NUMBER_ALLOWED ) {   
-      console.log('The maximum allowed number of files to upload is 5')
-      console.log(data_pictures.length)
+      //console.log('The maximum allowed number of files to upload is 5')
+      //console.log(data_pictures.length) 
       
-
-      alert ("The maximum allowed number of files to upload is 5")
+      alert ("The maximum allowed number of files to upload is 5, choose again please");
 
       deleteAllFiles();
                   
@@ -198,7 +191,7 @@ const CreateHome = () => {
                     <div className='mt-5 flex flex-wrap justify-center w-full lg:w-[40vw]  gap-10'>
                     
                       {render(urlImages, pictures)}
-                      {(urlImages?.length > MAXIMUM_IMAGES_NUMBER_ALLOWED) && (<p className='text-red-500'>The maximum allowed number of files to upload is 5</p>) }
+
                     </div>
 
                     <div className="my-[1vh] flex justify-center ">

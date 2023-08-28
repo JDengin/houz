@@ -17,7 +17,7 @@ const postSchema = new mongoose.Schema({
         type: [String], 
         default: [] 
     },
-    homeType: String,
+    homeType: {type: String, default: 'Chambre'},
     price: Number,
     monthsNumber: Number,
     rentDeposit: Number,

@@ -1,8 +1,8 @@
-import jwt from 'jsonwebtoken';
+ import jwt from 'jsonwebtoken';
 import asyncHandler from 'express-async-handler'
 import User from '../mongodb/models/userModels.js';
 
-const protect = asyncHandler(async (req, res, next) => {
+export const protect = asyncHandler(async (req, res, next) => {
     
     let token
 
@@ -12,7 +12,8 @@ const protect = asyncHandler(async (req, res, next) => {
             token = req.headers.authorization.split(' ')[1]
 
             //verify token
-            const decoded = jwt.verify(token, process.env.JWT_SECRET)
+            //const decoded = jwt.verify(token, process.env.JWT_SECRET)
+            const decoded = jwt.verify(token, process.env.TOKEN_KEY)
 
             // Get user from the token
             req.user = await User.findById(decoded.id).select('-password') //select('-password') allows to exclude the field password
@@ -29,4 +30,4 @@ const protect = asyncHandler(async (req, res, next) => {
         res.status(401)
         throw new Error('Not authorized, no token')
     }
-})
+});

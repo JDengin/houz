@@ -1,7 +1,7 @@
 //This display the homes I've created
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { HomeCardForMyHomes, Navbar, Spinner, PaginateMyHomes, Footer, UpdatePostModal, DeletePostModal} from "../components";
+import { HomeCardForMyHomes, Navbar, Spinner, PaginateMyHomes, Footer} from "../components";
 import { useSelector, useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import { reset, getMyHomes } from '../features/post/postSlice';

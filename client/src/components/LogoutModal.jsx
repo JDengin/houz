@@ -1,11 +1,13 @@
 import { RiCloseCircleLine } from "react-icons/ri"
 import { useDispatch } from 'react-redux';
 import { logout, reset } from '../features/auth/authSlice';
+import { useNavigate } from "react-router-dom";
 
 
 const LogoutModal = ({ showLogoutModal, handleCloseLogoutModal}) => {
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
    
     const onClose = (e) => {
       if(e.target.id === "ModalContainer") handleCloseLogoutModal() //With just one line inside if, I don't need to add curly bracket

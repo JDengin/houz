@@ -3,7 +3,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { FaBars, FaTimes } from "react-icons/fa"
 import houz_logo from '../assets/houz_logo.png';
-import { logout, reset } from '../features/auth/authSlice';
+//import { logout, reset } from '../features/auth/authSlice';
 import LogoutModal   from "./LogoutModal"
 
 const Navbar = () => {  
@@ -90,7 +90,6 @@ const Navbar = () => {
 
         <LogoutModal handleCloseLogoutModal={handleCloseLogoutModal} showLogoutModal={showLogoutModal} /> 
                
-
     </header>
   )
 }
